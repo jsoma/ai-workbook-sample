@@ -74,6 +74,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
             e.preventDefault();
         });
     });
+
+    let clearButtons = document.querySelectorAll('a[chat-action="clear"]');
+    clearButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            let message = button.getAttribute('message');
+            let section = button.closest('.chat-section');
+            let chatbot = section.querySelector('ai-chatbot > div');
+            let event = new CustomEvent('doClear');
+
+            chatbot.dispatchEvent(event);
+
+            e.preventDefault();
+        });
+    });
 })
 </script>
 <script src="./static/marked.js"></script>
