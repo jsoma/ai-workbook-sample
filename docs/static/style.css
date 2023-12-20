@@ -1,5 +1,7 @@
 .ai-holder {
-    /* padding: 1em; */
+    z-index: 100;
+    position: sticky;
+    top: 0;
 }
 
 ai-chatbot {
@@ -7,6 +9,7 @@ ai-chatbot {
     max-width: 800px;
     margin: 0 auto;
     height: 100%;
+    z-index: 100;
 }
 
 .messages-container {
@@ -20,7 +23,7 @@ ai-chatbot {
     margin: 0 auto;
 }
 
-.btn {
+.content .btn {
     margin: 2rem auto;
     display: block;
     max-width: 80%;
@@ -32,7 +35,7 @@ ai-chatbot {
 
 @media only screen and (max-width: 768px) {
     .ai-holder {
-        height: 50vh;
+        /* height: 50vh; */
     }
 }
 
