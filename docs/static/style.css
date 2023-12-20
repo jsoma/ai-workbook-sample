@@ -1,0 +1,66 @@
+.ai-holder {
+    /* padding: 1em; */
+}
+
+ai-chatbot {
+    display: block;            
+    max-width: 800px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.messages-container {
+    background: white;
+}
+
+.chat-container {
+    background: white;
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn {
+    margin: 2rem auto;
+    display: block;
+    max-width: 80%;
+}
+
+.chat-section {
+    position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+    .ai-holder {
+        height: 50vh;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .chat-section {
+        display: flex; /* Enables flexbox layout */
+        flex-direction: row-reverse;
+    }
+    
+    .ai-holder, .content {
+        flex: 1; /* Each child takes up equal space */
+    }
+
+    ai-chatbot {
+        max-height: 85vh;
+        position: sticky;
+        top: 7.5vh;
+        margin-left: 1rem;
+    }
+    
+}
+
+.message p {
+    margin-top: 0 !important;
+}
+
+.blockquote {
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+}

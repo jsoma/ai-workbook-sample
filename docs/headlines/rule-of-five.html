@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>AI Workbook for Journalists – rule-of-five</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../headlines/conversations.html" rel="next">
+<link href="../headlines/prompt-engineering.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    let buttons = document.querySelectorAll('a[message]');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            let message = button.getAttribute('message');
+            let section = button.closest('.chat-section');
+            let chatbot = section.querySelector('ai-chatbot > div');
+            let event = new CustomEvent('externalMessage', { detail: message });
+
+            chatbot.dispatchEvent(event);
+
+            e.preventDefault();
+        });
+    });
+})
+</script>
+<script src="../static/marked.js"></script>
+<script type="module" src="../essay/svelte-app/dist/chatbot.js"></script>
+
+
+<link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">AI Workbook for Journalists</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../headlines/index.html">Headlines</a></li><li class="breadcrumb-item"><a href="../headlines/rule-of-five.html">Rule of five</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../headlines/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Headlines</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../headlines/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The value of chat</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../headlines/prompt-engineering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt engineering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../headlines/rule-of-five.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Rule of five</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../headlines/conversations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-way conversations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../headlines/conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The big reveal</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="rule-of-five" class="level1">
+<h1>Rule of five</h1>
+<p>One way to iterate more quickly when using AI tools is <strong>the rule of five</strong> (or ten, or thirty, or ninety). Instead of asking for one headline at a time, ask ChatGPT for <em>five headlines</em>.</p>
+<p>Along with getting more ideas set out in front of you, I’ve also found it to be helpful process for <strong>highlighting bias</strong>. I don’t (necessarily) mean what we normally think of as bias - think of it more like “habits” or “tendencies.” Maybe one person always writes sensationalist headlines, another person always uses colons and subheads.</p>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<div class="chat-section">
+<div class="ai-holder">
+    <ai-chatbot headline="Headline suggester"></ai-chatbot>
+</div>
+<div class="content">
+<p>We’re going to start from the same headline generation prompt as before, but change it to be for <strong>five headlines</strong> instead of just one.</p>
+<div class="callout callout-style-simple callout-tip callout-titled" title="A prompt suggestion">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A prompt suggestion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are an editor at the New York Times. Write five headlines for the article below. The tone should be informed but approachable. Limit the headline to 70 characters.</p>
+<p>ARTICLE:</p>
+<p><em>(paste the story in)</em></p>
+</div>
+</div>
+<p><a class="btn btn-info" message="
+You are an editor at the New York Times. Write five headlines for the article below. The tone should be informed but approachable. Limit the headline to 70 characters.
+
+ARTICLE:
+
+A few blocks away from where a 1-year-old boy died, possibly from fentanyl poisoning at his Bronx day care this month, an open-air drug market persists along a trash-strewn underpass.
+
+On Wednesday, a man on a moped arrived in the late afternoon and about a dozen users ambled over to purchase drugs with dollar bills in their hands. People tied off their arms, prepped needles or packed pipes. After a while, the ground was littered with syringes and bloodstained alcohol swabs.
+
+No police officers were seen, although they are often nearby — sometimes steps away in the Kingsbridge Road subway station. But they rarely intervene, according to local residents, elected officials who have tried to clean up the area for several years, and nonprofit workers who distribute food and clean needles at the site.
+
+Residents and community leaders say they are regularly told by city officials that they are doing their best to make the area safer. But the Kingsbridge Road underpass is just one of many locations in the city where drug use has become more open, even as lives lost to overdoses are at a record high — roughly 3,200 such deaths citywide in 2022, according to an annual report by the city’s special narcotics prosecutor’s office.
+
+The situation there underscores an increasingly difficult dilemma for the city: how to curb an epidemic killing thousands of New Yorkers and making neighborhoods feel unlivable for thousands of others, without reverting to aggressive crackdowns, which many leaders and public health experts said have led to civil rights abuses and did not effectively curb drug use.
+
+The stakes are especially high with fentanyl, an extremely potent drug whose street version is becoming ever deadlier. It can kill a child if even a tiny amount is accidentally swallowed.
+
+Areas of the city where drug use is often in plain view range from lower-income and working class areas like the Hub at 149th Street in the Bronx, to busy tourist-filled spots like Times Square and parts of the West Village. Other cities, like Portland, Ore., and Phoenix, are grappling with similar problems.
+
+“The kids have to walk by it every day, exposed at a young age to very graphic scenes,” said Carol Rodriguez, 39, who was walking not far from the Kingsbridge underpass on her way to get her 9-year-old from school. She said things had deteriorated since the pandemic. “I worry that they grow up thinking this is normal.”
+
+Tolerating low-level dealing also represents a broader threat beyond the public health crisis, some former law enforcement officials warn, because violence can follow, and because it makes it harder to find and prosecute those higher up the chain.
+
+In the meantime, the question of how to avoid the collateral damage of drug use has only grown more urgent: Opioids have become the leading cause of child poisonings in the United States. More than 1,500 children died in fatal overdoses involving fentanyl in 2021, according to one study; over 100 were children under the age of 4.
+
+Officials have not confirmed whether fentanyl was the cause of death for Nicholas Feliz Dominici, the 1-year-old who died in the Bronx on Sept. 15, but three other children from the same day care were hospitalized that day after they were exposed to fentanyl. Days after the child died, the police discovered a trap door under a play area concealing large, clear storage bags filled with narcotics. The day care’s operator and a man who lived in the apartment that housed the day care have been arrested and charged with murder and criminal drug possession.
+
+The rising death toll comes as the city and the state have turned away from the aggressive law enforcement of low-level street drug activity that was common in the late 1990s. The shift has happened gradually over time, as a broader movement has pushed to reframe drug use as a public health crisis rather than as primarily a criminal issue.
+
+New York City, for example, has the only city-sanctioned drug consumption sites in the nation, in East Harlem and Washington Heights, where people can use drugs under the supervision of trained workers who prevent overdoses while offering treatment to those who ask for it.
+
+Proponents of this path say that criminalization has not worked, and has clearly not led to the elimination of drugs from our society. Rather, they say, it just pushes the problem out of view, and makes it harder for users to get help.
+
+“The thing I refuse to do is say that the way to solve the problem is to throw more police at it,” said Gustavo Rivera, a state senator representing the Bronx, who has introduced a bill supporting decriminalization of all drugs. “We have to have a comprehensive approach.”
+
+He added that if there was an overdose prevention center near the underpass, “you would not have those folks there. They would be in a non-stigmatized place, able to access services.”
+
+There have been several forks in the road that have led more public officials to think the same way.
+
+The so-called War on Drugs in the 1970s and 1980s aimed for a zero-tolerance approach. But it also led to the incarceration of millions of Black and Latino people across the country, often for nonviolent offenses. While the overall number of cocaine users declined during those years, the amount of drugs consumed stayed the same and the number of teenagers who tried illicit drugs rose, according to one study by the RAND Corporation.
+
+In response, New York passed laws to address civil rights concerns, including one in 2019 that, among other things, significantly increased the amount of paperwork that had to be done after drug arrests, and gave prosecutors a shorter time frame to hand evidence over to the accused.
+
+In 2021, Gov. Kathy Hochul signed a law that decriminalized the sale and possession of hypodermic needles, and also expanded the number of crimes in which those charged were eligible for diversion to drug treatment programs instead of prison. It was another signal to law enforcement that while possessing a small quantity of illegal drugs remains a crime — street use, in some ways, had essentially been decriminalized.
+
+State bail reform laws, also passed in 2019, have allowed more people accused of crimes to return to the community shortly after their arrests. Whether this has actually increased crime is not clear, but even so, experts said the police are less likely to act aggressively if they know the people they arrest will be back on the street shortly afterward.
+
+Bridget Brennan, the city’s special narcotics prosecutor, said that while the new laws were intended to reduce overdoses and reverse decades of harsh prison sentences for lower-level offenses, they also had the unintended effect of emboldening drug dealers. She said prosecutors will charge dealers three or four times and they still will not be held on bail.
+
+“What that means in terms of drug dealers is they’re going to be more bold and blatant in their activity,” she said. “There is a lot of money to be made and there is not much of a deterrent.”
+
+The number of narcotics arrests in the city closely tracks the policy shift. There were 27,232 narcotics arrests in 2018, according to police data. That dropped to 14,156 in 2020, at the height of the pandemic. Narcotics arrests for 2023 have risen, to 16,000 as of Sept. 17, a 34 percent increase from the same time period last year, but they remain well below 2018 levels.
+
+Joseph Kenny, the chief of detectives for the Police Department, said that arresting a person for having a needle “was never a priority in our world.”
+
+“We are not looking to take drug abusers and put them in prison,” Chief Kenny said. “We want them to get the help they need.”
+
+As for arresting low-level street dealers, he said, prosecutors “are asking us to build bigger cases.”
+
+“We need to target the dealers, the suppliers and the traffickers,” Chief Kenny said.
+
+Civil rights concerns animate those opposed to more crackdowns; 94 percent of those prosecuted for narcotics charges in the Bronx were Black or Latino.
+
+Supporters of decriminalization also point to data showing the lives saved at supervised consumption sites. Some express frustration that despite outward support by public officials, the centers still often exist in a legal purgatory, illegal under federal law, and lack government funding that might allow them to expand. Opponents say the sites encourage more drug use, especially on the blocks nearby.
+
+Dr. Andrea Littleton provides medical care to drug users at the Kingsbridge underpass. She favors decriminalization, because she hopes that would lead to more regulation, and “hopefully get some of the fentanyl off the street.”
+
+“At least then it would be less deadly to individuals, to babies and day cares,” she said.
+
+One of the biggest concentrations of street drug activity in the city is near 125th Street and Lexington Ave in Harlem, near some drug treatment clinics. On one Wednesday in August, four officers stood on the southwest corner of the street, two of them looking at their phones.
+
+When approached by a reporter, they said they had been told to stand there.
+
+At one point, a different pair of police officers approached a busy corner for street drug activity — to give a summons to a man for public drinking.
+
+Shawn Hill, co-founder of the Greater Harlem Coalition, a community group, has spent dozens of hours documenting open drug activity in the neighborhood in the hopes of reducing it. He seldom spots an arrest, he said.
+
+“I think policing has changed dramatically in the last four or five years,” he said.
+
+In a statement, the Police Department called the issue “a real concern to residents in all city neighborhoods.”
+
+“There’s still work to be done, but our officers are more engaged and focused than ever,” the statement said.
+
+Narcotics squads are still making thousands of arrests, including high-level drug busts, which are often undertaken with federal law enforcement. To underscore the risks of fentanyl after last week’s day care death, the city on Wednesday held a news conference to announce a large guns and drugs bust in Queens.
+
+Ms. Brennan said that last year, her office seized about 1,000 pounds of fentanyl off the street and about one million pills. Police officials said an additional 150 officers have been added to narcotics squads recently, with plans for more. Each borough has two teams of officers assigned to investigate 911 and 311 calls about drug-related complaints. Additional units conduct “buy and bust” operations, where undercover officers make multiple drug buys from the same dealer in order to catch the more prolific street-level dealers.
+
+“Our goal is that citizens shouldn’t have to walk past a drug dealer to get into their building,” Chief Kenny said.
+
+Yet in some pockets, like Kingsbridge, several residents said it feels so unsafe that they have stopped leaving the house after 6 p.m. “You’ll come down the stairs with the kids in the morning and there’s someone sitting there, just shooting up,” said Chris Castellanos, 35, a father of four children.
+
+Karla Cabrera Carrera, the district manager of Community Board 7, which includes Kingsbridge, said that society has to think about the rights of residents to feel secure, too.
+
+“We are really facing a really bad issue,” she said. “I love the Bronx, I don’t want to have to move, but at this point, we are all desperate to find a solution to all of it.”
+
+"><strong>Skip the work:</strong> click here to use my article 🔮</a></p>
+<p><a class="btn btn-danger" chat-action="clear">Clear the chat 🔮</a></p>
+<p>This is simple, this is easy. And nothing’s stopping us from asking for ten headlines or twenty headlines!</p>
+<section id="noticing-habits" class="level2">
+<h2 class="anchored" data-anchor-id="noticing-habits">Noticing habits</h2>
+<p>The five responses I got were pretty much all in the same vein:</p>
+<blockquote class="blockquote">
+<ul>
+<li>Bronx Drug Market Thrives as City Battles Overdose Crisis</li>
+<li>Fentanyl Fear Rises in NYC Amid Record Overdose Deaths</li>
+<li>In Bronx Underpass, Open Drug Use and Rising Tensions</li>
+<li>Bronx Tragedy: Fentanyl’s Shadow Over a Community in Crisis</li>
+<li>Amidst Drug Crisis, Bronx Residents Seek Safer Streets</li>
+</ul>
+</blockquote>
+<p>When you ask for five headlines instead of just one, the similarities really jump out at you! We’re being gently guided into a certain direction, even though the LLM doesn’t actually have a reason to send us in one direction or another (it can’t think, after all!).</p>
+<p>I think calling this “bias” is a bit much, but it’s a gentle reminder that AI tools come with baked-in assumptions and angles. If you don’t work hard to notice them, <strong>at the very least they’ll make all your content similar and boring!</strong></p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Notice how even though I asked ChatGPT to not use subheads or colons, it did anyway! You should expect the AI to ignore your instructions a good portion of the time.</p>
+</div>
+</div>
+</div>
+<p>One way to add a little diversity to the mix is to simply <em>ask for it</em>.</p>
+</section>
+<section id="diversifying-your-results" class="level2">
+<h2 class="anchored" data-anchor-id="diversifying-your-results">Diversifying your results</h2>
+<p>An extension of the simple “give us five” from above might be to <strong>explicitly ask ChatGPT for five markedly different options</strong> – in this case it might be five different angles or five different tones.</p>
+<p>Even if we aren’t making specific demands of the AI tool on <em>how</em> to break out of its habits, asking for different takes can go a long way in helping it happen.</p>
+<div class="callout callout-style-simple callout-tip callout-titled" title="A prompt suggestion">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A prompt suggestion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are an editor at the New York Times. Write five headlines for the story below. The tone should be informed but approachable. Limit the headline to 70 characters.</p>
+<p>Have each headline elicit a different emotional response or subject-matter concern from the reader. Label each headline with the emotion/concern.</p>
+<p>ARTICLE:</p>
+<p><em>(paste the story in)</em></p>
+</div>
+</div>
+<p><a class="btn btn-info" message="
+You are an editor at the New York Times. Write five headlines for the story below. The tone should be informed but approachable. Limit the headline to 70 characters.
+
+Have each headline elicit a different emotional response or subject-matter concern from the reader. Label each headline with the emotion/concern.
+
+ARTICLE:
+
+A few blocks away from where a 1-year-old boy died, possibly from fentanyl poisoning at his Bronx day care this month, an open-air drug market persists along a trash-strewn underpass.
+
+On Wednesday, a man on a moped arrived in the late afternoon and about a dozen users ambled over to purchase drugs with dollar bills in their hands. People tied off their arms, prepped needles or packed pipes. After a while, the ground was littered with syringes and bloodstained alcohol swabs.
+
+No police officers were seen, although they are often nearby — sometimes steps away in the Kingsbridge Road subway station. But they rarely intervene, according to local residents, elected officials who have tried to clean up the area for several years, and nonprofit workers who distribute food and clean needles at the site.
+
+Residents and community leaders say they are regularly told by city officials that they are doing their best to make the area safer. But the Kingsbridge Road underpass is just one of many locations in the city where drug use has become more open, even as lives lost to overdoses are at a record high — roughly 3,200 such deaths citywide in 2022, according to an annual report by the city’s special narcotics prosecutor’s office.
+
+The situation there underscores an increasingly difficult dilemma for the city: how to curb an epidemic killing thousands of New Yorkers and making neighborhoods feel unlivable for thousands of others, without reverting to aggressive crackdowns, which many leaders and public health experts said have led to civil rights abuses and did not effectively curb drug use.
+
+The stakes are especially high with fentanyl, an extremely potent drug whose street version is becoming ever deadlier. It can kill a child if even a tiny amount is accidentally swallowed.
+
+Areas of the city where drug use is often in plain view range from lower-income and working class areas like the Hub at 149th Street in the Bronx, to busy tourist-filled spots like Times Square and parts of the West Village. Other cities, like Portland, Ore., and Phoenix, are grappling with similar problems.
+
+“The kids have to walk by it every day, exposed at a young age to very graphic scenes,” said Carol Rodriguez, 39, who was walking not far from the Kingsbridge underpass on her way to get her 9-year-old from school. She said things had deteriorated since the pandemic. “I worry that they grow up thinking this is normal.”
+
+Tolerating low-level dealing also represents a broader threat beyond the public health crisis, some former law enforcement officials warn, because violence can follow, and because it makes it harder to find and prosecute those higher up the chain.
+
+In the meantime, the question of how to avoid the collateral damage of drug use has only grown more urgent: Opioids have become the leading cause of child poisonings in the United States. More than 1,500 children died in fatal overdoses involving fentanyl in 2021, according to one study; over 100 were children under the age of 4.
+
+Officials have not confirmed whether fentanyl was the cause of death for Nicholas Feliz Dominici, the 1-year-old who died in the Bronx on Sept. 15, but three other children from the same day care were hospitalized that day after they were exposed to fentanyl. Days after the child died, the police discovered a trap door under a play area concealing large, clear storage bags filled with narcotics. The day care’s operator and a man who lived in the apartment that housed the day care have been arrested and charged with murder and criminal drug possession.
+
+The rising death toll comes as the city and the state have turned away from the aggressive law enforcement of low-level street drug activity that was common in the late 1990s. The shift has happened gradually over time, as a broader movement has pushed to reframe drug use as a public health crisis rather than as primarily a criminal issue.
+
+New York City, for example, has the only city-sanctioned drug consumption sites in the nation, in East Harlem and Washington Heights, where people can use drugs under the supervision of trained workers who prevent overdoses while offering treatment to those who ask for it.
+
+Proponents of this path say that criminalization has not worked, and has clearly not led to the elimination of drugs from our society. Rather, they say, it just pushes the problem out of view, and makes it harder for users to get help.
+
+“The thing I refuse to do is say that the way to solve the problem is to throw more police at it,” said Gustavo Rivera, a state senator representing the Bronx, who has introduced a bill supporting decriminalization of all drugs. “We have to have a comprehensive approach.”
+
+He added that if there was an overdose prevention center near the underpass, “you would not have those folks there. They would be in a non-stigmatized place, able to access services.”
+
+There have been several forks in the road that have led more public officials to think the same way.
+
+The so-called War on Drugs in the 1970s and 1980s aimed for a zero-tolerance approach. But it also led to the incarceration of millions of Black and Latino people across the country, often for nonviolent offenses. While the overall number of cocaine users declined during those years, the amount of drugs consumed stayed the same and the number of teenagers who tried illicit drugs rose, according to one study by the RAND Corporation.
+
+In response, New York passed laws to address civil rights concerns, including one in 2019 that, among other things, significantly increased the amount of paperwork that had to be done after drug arrests, and gave prosecutors a shorter time frame to hand evidence over to the accused.
+
+In 2021, Gov. Kathy Hochul signed a law that decriminalized the sale and possession of hypodermic needles, and also expanded the number of crimes in which those charged were eligible for diversion to drug treatment programs instead of prison. It was another signal to law enforcement that while possessing a small quantity of illegal drugs remains a crime — street use, in some ways, had essentially been decriminalized.
+
+State bail reform laws, also passed in 2019, have allowed more people accused of crimes to return to the community shortly after their arrests. Whether this has actually increased crime is not clear, but even so, experts said the police are less likely to act aggressively if they know the people they arrest will be back on the street shortly afterward.
+
+Bridget Brennan, the city’s special narcotics prosecutor, said that while the new laws were intended to reduce overdoses and reverse decades of harsh prison sentences for lower-level offenses, they also had the unintended effect of emboldening drug dealers. She said prosecutors will charge dealers three or four times and they still will not be held on bail.
+
+“What that means in terms of drug dealers is they’re going to be more bold and blatant in their activity,” she said. “There is a lot of money to be made and there is not much of a deterrent.”
+
+The number of narcotics arrests in the city closely tracks the policy shift. There were 27,232 narcotics arrests in 2018, according to police data. That dropped to 14,156 in 2020, at the height of the pandemic. Narcotics arrests for 2023 have risen, to 16,000 as of Sept. 17, a 34 percent increase from the same time period last year, but they remain well below 2018 levels.
+
+Joseph Kenny, the chief of detectives for the Police Department, said that arresting a person for having a needle “was never a priority in our world.”
+
+“We are not looking to take drug abusers and put them in prison,” Chief Kenny said. “We want them to get the help they need.”
+
+As for arresting low-level street dealers, he said, prosecutors “are asking us to build bigger cases.”
+
+“We need to target the dealers, the suppliers and the traffickers,” Chief Kenny said.
+
+Civil rights concerns animate those opposed to more crackdowns; 94 percent of those prosecuted for narcotics charges in the Bronx were Black or Latino.
+
+Supporters of decriminalization also point to data showing the lives saved at supervised consumption sites. Some express frustration that despite outward support by public officials, the centers still often exist in a legal purgatory, illegal under federal law, and lack government funding that might allow them to expand. Opponents say the sites encourage more drug use, especially on the blocks nearby.
+
+Dr. Andrea Littleton provides medical care to drug users at the Kingsbridge underpass. She favors decriminalization, because she hopes that would lead to more regulation, and “hopefully get some of the fentanyl off the street.”
+
+“At least then it would be less deadly to individuals, to babies and day cares,” she said.
+
+One of the biggest concentrations of street drug activity in the city is near 125th Street and Lexington Ave in Harlem, near some drug treatment clinics. On one Wednesday in August, four officers stood on the southwest corner of the street, two of them looking at their phones.
+
+When approached by a reporter, they said they had been told to stand there.
+
+At one point, a different pair of police officers approached a busy corner for street drug activity — to give a summons to a man for public drinking.
+
+Shawn Hill, co-founder of the Greater Harlem Coalition, a community group, has spent dozens of hours documenting open drug activity in the neighborhood in the hopes of reducing it. He seldom spots an arrest, he said.
+
+“I think policing has changed dramatically in the last four or five years,” he said.
+
+In a statement, the Police Department called the issue “a real concern to residents in all city neighborhoods.”
+
+“There’s still work to be done, but our officers are more engaged and focused than ever,” the statement said.
+
+Narcotics squads are still making thousands of arrests, including high-level drug busts, which are often undertaken with federal law enforcement. To underscore the risks of fentanyl after last week’s day care death, the city on Wednesday held a news conference to announce a large guns and drugs bust in Queens.
+
+Ms. Brennan said that last year, her office seized about 1,000 pounds of fentanyl off the street and about one million pills. Police officials said an additional 150 officers have been added to narcotics squads recently, with plans for more. Each borough has two teams of officers assigned to investigate 911 and 311 calls about drug-related complaints. Additional units conduct “buy and bust” operations, where undercover officers make multiple drug buys from the same dealer in order to catch the more prolific street-level dealers.
+
+“Our goal is that citizens shouldn’t have to walk past a drug dealer to get into their building,” Chief Kenny said.
+
+Yet in some pockets, like Kingsbridge, several residents said it feels so unsafe that they have stopped leaving the house after 6 p.m. “You’ll come down the stairs with the kids in the morning and there’s someone sitting there, just shooting up,” said Chris Castellanos, 35, a father of four children.
+
+Karla Cabrera Carrera, the district manager of Community Board 7, which includes Kingsbridge, said that society has to think about the rights of residents to feel secure, too.
+
+“We are really facing a really bad issue,” she said. “I love the Bronx, I don’t want to have to move, but at this point, we are all desperate to find a solution to all of it.”
+
+"><strong>Skip the work:</strong> click here to use my article 🔮</a></p>
+<p><a class="btn btn-danger" chat-action="clear">Clear the chat 🔮</a></p>
+</section>
+</div>
+</div>
+</section>
+<section id="reflection" class="level2">
+<h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>Let’s take a look at the results I got:</p>
+<blockquote class="blockquote">
+<ul>
+<li><strong>Concern: Public Safety:</strong> “Bronx Daycare Tragedy Highlights Rampant Drug Crisis in NYC”</li>
+<li><strong>Emotion: Outrage:</strong> “Fentanyl Scourge Unchecked: Bronx Community Demands Action”</li>
+<li><strong>Emotion: Compassion:</strong> “Amid Bronx Despair, a Plea for Help Against Drug Menace”</li>
+<li><strong>Concern: Policy and Governance:</strong> “NYC Struggles with Drug Policy as Overdoses Soar, Communities Suffer”</li>
+<li><strong>Emotion: Fear:</strong> “Bronx Nightmare: Fentanyl Threat Looms as Overdoses Rise”</li>
+</ul>
+</blockquote>
+<p>When you’re provided suggestions by the AI, it’s easy to just go along with them. But when you starting seeing the habits and tendencies and start asking for different angles, I feel like that’s when you start to realize <em>“hey, we’re giving up a lot of control here!”</em></p>
+<p>If the media has a certain way of talking about certain topics – which media critics like <a href="https://equalityalec.substack.com/">Alec Karakatsanis</a> would <a href="https://equalityalec.substack.com/p/forces-of-nature">very much agree</a> – it takes a certain degree effort to break out of the typical framing.</p>
+<p>Using an AI-generated headline can go both ways: since language models are just statistical predictions of the next word, they go above and beyond when it comes to reinforcing what’s “typical,” or the status quo of how a subject is discussed. But conversely, if we recognize that other angles might exist, it’s easy enough to prompt in directions we wouldn’t normally think about.</p>
+<p>In our next step we go even further in having the AI help us generate more headlines and think critically about our angles.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../headlines/prompt-engineering.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Prompt engineering</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../headlines/conversations.html" class="pagination-link">
+        <span class="nav-page-text">Two-way conversations</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Find me at <a href="mailto:jonathan.soma@gmail.com">jonathan.soma@gmail.com</a> or <a href="https://twitter.com/dangerscarf"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a></div>   
+    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/headlines/rule-of-five.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jsoma">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/dangerscarf">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jonathan.soma@gmail.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
