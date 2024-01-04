@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AI Workbook for Journalists - How to: Create a demo page for an AI model</title>
+<title>AI Workbook for Journalists - How to create a demo page for an AI model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 <link rel="stylesheet" href="../static/style.css">
-<meta name="twitter:title" content="AI Workbook for Journalists - How to: Create a demo page for an AI model">
+<meta name="twitter:title" content="AI Workbook for Journalists - How to create a demo page for an AI model">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="images/default-interface-00.png">
 <meta name="twitter:creator" content="@dangerscarf">
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How to: Create a demo page for an AI model</h1>
+<h1 class="title">How to create a demo page for an AI model</h1>
 </div>
 
 
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <h2 class="anchored" data-anchor-id="using-examples-on-the-page">Using examples on the page</h2>
 <p>There’s usually a tiny playground on the right-hand side of the page with a couple examples. Sometimes you can also type in your own examples to have the model work on.</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
-    <source src="images/default-interface-01-example-on-page.webm">
+    <source src="images/default-interface-01-example-on-page.mp4">
 </video>
 <p>If you’re looking for a quick test, sometimes that playground is enough to get across how the model works and experiment with limitations.</p>
 <p>…but not for us!</p>
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </div>
 <p>Scroll to the top of the model page and find the <strong>Deploy</strong> button on the right. Click it and you’ll see a dropdown appear: select <strong>Spaces</strong>. Spaces is Hugging Face’s application hosting platform, and they’ll let you use it for free!</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
-    <source src="images/default-interface-02-create-01.webm">
+    <source src="images/default-interface-02-create-01.mp4">
 </video>
 <p>They display some code, but we don’t care about it. Just click <strong>Create new Space</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <p>Now Hugging Face will ask you for some details about your new demo page. You can change the Space name if you’d like, but keep everything else the same.</p>
 <p>Scroll to the bottom and click <strong>Create Space</strong>.</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
-    <source src="images/default-interface-03-create-02.webm">
+    <source src="images/default-interface-03-create-02.mp4">
 </video>
 <p>Now Hugging Face will start to put your Space together. Note the <strong>Building</strong> up at the top - when it turns to <strong>Running</strong>, feel free to click the X to close the “Logs” window. It might take a few minutes, so feel free to go get a coffee!</p>
 <div class="quarto-figure quarto-figure-center">
@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </div>
 <p>Once your demo is running, you’re ready to go!</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
-    <source src="images/default-interface-05-using-app.webm">
+    <source src="images/default-interface-05-using-app.mp4">
 </video>
 </section>
 </section>
@@ -347,7 +347,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <p>In this tutorial we learned to <strong>create a live demo for an AI model</strong> using Hugging Face Spaces. The end result isn’t customized at all, but it’s enough to play around with or share with members of our team.</p>
 <p>It’s easy to hear about “a magic robot to automatically categorize documents” and have an immediate emotional reaction – whether that’s dismissing it out of hand or throwing confetti into the air is up to you. Being able to experiment allows you set those feelings aside and see whether the tool is <em>actually</em> going to be useful.</p>
 <p>Simple, shareable demos are also a great way to get practical, nuanced feedback from non-technical team members who might be otherwise left out of the conversation. Even programmers get tired of running code from time to time!</p>
-<p>Looking for a little more control over the experience? Head on to <a href="../demos/030-learning-gradio.html">the next section</a> to see how Gradio – the technology that powers our tool – can build a more customized demo.</p>
+</section>
+<section id="next-steps" class="level1">
+<h1>Next steps</h1>
+<p>If we’re looking for a other models to play around with we can <a href="https://huggingface.co/models">browse all of the models</a>, but I’ve also hand-picked a few that might be interesting:</p>
+<ul>
+<li><a href="https://huggingface.co/dslim/bert-base-NER">bert-base-NER</a> for named entity recognition (finding people, places and things in text)</li>
+<li><a href="https://huggingface.co/facebook/bart-large-cnn">bart-large-cnn</a> for summarization (…it won’t beat ChatGPT, though!)</li>
+<li><a href="https://huggingface.co/Salesforce/blip-image-captioning-large">blip-image-captioning-large</a> for automated image captioning</li>
+</ul>
+<p>Let’s be honest, though: these demos aren’t very friendly! Our coworkers would really love some instructions and an example or two, wouldn’t they?</p>
+<p>If we want more control over the experience, <a href="../demos/030-learning-gradio.html">the next section</a> will walk us through how Gradio – the technology that powers our tool – can be used to build a more customized demo.</p>
 
 
 </section>
