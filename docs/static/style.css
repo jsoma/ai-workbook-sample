@@ -67,3 +67,18 @@ ai-chatbot {
     padding-left: 0.5rem;
     padding-right: 1rem;
 }
+
+video, img {
+    max-width: 90% !important;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+
+video {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.figure-caption {
+    display: none;
+}

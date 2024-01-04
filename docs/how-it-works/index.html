@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AI Workbook for Journalists – headline-suggestion-copy-2</title>
+<title>AI Workbook for Journalists – index</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../demos/010-intro.html" rel="next">
+<link href="../headlines/conclusion.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -119,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../how-it-works/index.html">How it works</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -222,65 +224,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-<section id="headline-suggestions" class="level2">
-<h2 class="anchored" data-anchor-id="headline-suggestions">Headline suggestions</h2>
-<p>We can all agree that writing headlines is the most horrific thing journalists have to endure. Let’s see what we can do to solve that problem!</p>
-<p>Let’s just… ask ChatGPT. Easy-peasy.</p>
-<p>Your mission has two parts:</p>
-<p>The first part is to open up ChatGPT.</p>
-<p>The second part is to find a news article that you’d like to have a headline generated for. It’s important that’s <em>been published</em> so you can compare the headline that’s generated to the headline that was actually published.</p>
-<p>I’m going to use <a href="https://www.nytimes.com/2023/09/24/nyregion/bronx-day-care-death-fentanyl-nyc.html">this piece</a> about drug use in the Bronx.</p>
-<p>We’ll start by simply asking ChatGPT to generate a headline for us.</p>
-<pre><code>**Write a headline for the story below:**
-
-(paste the story in)</code></pre>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>The NYT article has ads and pictures and stuff halfway through – instead of selecting the full page of text I had to paste it in a few chunks.</p>
-</div>
-</div>
-</div>
-<p>My result says: **This is my result*</p>
-<p>Is it good? Is it bad?</p>
-<p>I find that using generative AI is a lot like going out to eat: even if something is objectively not wonderful, it seems great since you didn’t have to do the work. I encourage you to be as critical as possible of the results you’re getting back.</p>
-<p>Let’s try again, but this time we’ll give a little more guidance:</p>
-<pre><code>**You are an editor for the New York Times. Write a headline for the story below. The tone should be informed but approachable. Limit the headline to 70 characters.**
-
-(paste the story in)</code></pre>
-<p>Now it’s a bit shorter and the tone has shifted (I think?).</p>
-<p>It still isn’t exactly perfect, which means we can try again. And again. And again. Each time nudging the headline in the direction we’re looking for. <strong>This is why ChatGPT is perfect for headline generation: it’s an iterative process.</strong></p>
-<p>Unlike many other tasks where you want AI to do the entire job without interruption, headlines are both short enough and important enough that you (probably) want to be fully involved from start to finish.</p>
-<p>As you change your prompt again and again, you start to note a bit of <em>sameness</em> about the headlines. They all seem to maybe have a similar tone, or a similar angle, or something that’s just… not as varied as when you’d ask a person to generate a handful of headlines.</p>
-<p>A way to get to this point faster is <strong>the rule of five.</strong> Instead of asking for one headline at a time, ask ChatGPT for <em>five headlines</em>.</p>
-<pre><code>**You are an editor for the New York Times. Write five headline for the story below. The tone should be informed but approachable. Limit each headline to 70 characters.**
-
-(paste the story in)</code></pre>
-<p>Now the similarities really jump out at you! We’re being gently guided into a certain direction, even if it’s completely by accident.</p>
-<p>I think calling this “bias” is a bit much, but it’s a gentle reminder that <strong>AI tools come with baked-in assumptions and angles</strong>. If you don’t pay attention to or notice them, at the very least they’ll make your headlines all similar and boring!</p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Notice how even though I asked ChatGPT to not use subheads or colons, it did anyway! You should expect the AI to ignore your instructions a good portion of the time.</p>
-</div>
-</div>
-</div>
-<p>An extension of this approach might be to ask ChatGPT for five different angles, or five different tones.</p>
-<pre><code>Write five headlines for the story below. Limit each headline to around twelve words. Have each headline elicit a different emotional response from the reader. Label each headline with the emotion. Headlines should be elegant, and with the tone of the New Yorker. Don't use colons or multi-part headlines.
-
-(paste the story in)</code></pre>
-<p>Once we’ve gone this far, we’re probably going to end up picking a variation of one of the headlines that ChatGPT has suggested. But now the important part: how does it compare with the final headline the NYT used?</p>
-<p>The NYT one is far more vague, less fear-inducing, and doesn’t mention the Bronx at <em>all</em>. It makes it a story relevant to all New Yorkers, but doesn’t turn it into fearmongering clickbait.</p>
-<p>Honestly, I was shocked: it’s <em>so far from anything that GPT suggested</em>.</p>
-<p>I read paper a while ago about story generation from humans and humans assisted by AI. Humans alone performed worse on average, but also had a much wider range of ideas and concepts brought into the stories. AI-assisted stories were better, but also more similar to each other. To abuse a quote, “all uncreative human work improved by AI is alike; every skilled creative human work is interesting in its own way.”</p>
+<section id="how-ai-works-peeking-into-language-models" class="level1">
+<h1>How AI works: Peeking into language models</h1>
+<p>In this section, we’re going to study up on how chatbots actually work! While you don’t need to know all of the nuts and bolts, having a vague understanding of the tech that powers them can go a long way in understand what’s possible and what isn’t.</p>
+<section id="table-of-contents" class="level3">
+<h3 class="anchored" data-anchor-id="table-of-contents">Table of contents</h3>
+<ol type="1">
+<li><a href="how-it-works/language-models.qmd">What’s a language model?</a>, so you can finally throw “LLM” around in conversations</li>
+<li><a href="how-it-works/hallucinations.qmd">Hallucinations</a>, or how and why language models lie to you</li>
+<li><a href="how-it-works/temperature.qmd">Controlling creativity with temperature</a>, keeping things predictable (or getting a little wild)</li>
+<li><a href="how-it-works/context-windows.qmd">Context windows</a>, or the non-infinite brains of LLMs</li>
+<li><a href="how-it-works/models.qmd">Language models beyond ChatGPT</a>, including Claude, Gemini, Mistral and more.</li>
+<li><a href="how-it-works/other-models.qmd">Non-language models</a> I don’t know if I should have this section</li>
+</ol>
+<ul>
+<li>language models study how things work, they make predictions. they are generative AI but aren’t just chatbots.</li>
+<li>hallucinations are things that are more likely or less likely</li>
+<li>it doesn’t only produce the most likely thing, you can change temperature to swap it up</li>
+<li>they can’t look back infinitely, they have a context window</li>
+<li>other language models are better or worse</li>
+<li>there are also models that do other things</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -517,11 +484,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../headlines/conclusion.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The big reveal</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../demos/010-intro.html" class="pagination-link">
+        <span class="nav-page-text">Intro</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Find me at <a href="mailto:jonathan.soma@gmail.com">jonathan.soma@gmail.com</a> or <a href="https://twitter.com/dangerscarf"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a></div>   
-    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/headlines/016-headline-suggestion copy 2.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/how-it-works/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
