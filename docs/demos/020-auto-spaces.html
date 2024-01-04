@@ -244,11 +244,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 </header>
 
-<p>While the AI world can sometiems be super technical, <strong>you don’t need to know anything about anything to try out most models!</strong> With a link to their Hugging Face page and a few mouse clicks, the most advanced tools in the industry can be at your service.</p>
-<p>The end result isn’t very customized, but sometimes that’s okay! If you’re looking for a more polished experienced, try <a href="../demos/030-learning-gradio.html">the next chapter</a>.</p>
+<p>While the AI world can sometiems be super technical, <strong>we don’t need to know anything about anything to try out most models!</strong> With a link to their Hugging Face page and a few mouse clicks, the most advanced tools in the industry can be at your service.</p>
+<p>The end result isn’t very customized, but sometimes that’s okay! If we’re looking for a more polished experienced, <a href="../demos/030-learning-gradio.html">the next chapter</a> might be a better fit.</p>
 <section id="the-goal" class="level1">
 <h1>The goal</h1>
-<p>In this example we’re going to make an <strong>automatic text categorizer</strong> with just a few clicks. You might use something based on this tool to filter documents, emails or legislation before they are reviewed by an actual journalist.</p>
+<p>In this example we’re going to make an <strong>automatic text categorizer</strong> with just a few clicks. We might use something based on this tool to filter documents, emails or legislation before they are reviewed by an actual journalist.</p>
 <p>The end result will look like this:</p>
 <gradio-app src="https://wendys-llc-example-facebook-bart-large-mnli.hf.space"></gradio-app>
 <p>Give it a try! My suggestion is:</p>
@@ -256,10 +256,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <li><strong>Input:</strong> mr sparkles</li>
 <li><strong>Possible categories:</strong> clown, pet, senator</li>
 </ul>
-<p>Note that if you were going to use this tool for research in your newsroom, <strong>this interface wouldn’t be the final product.</strong> It’s just a simple, accessible demo to help with experimentation and early-stage feedback.</p>
+<p>Note that if we were going to use this tool for research in our newsroom, <strong>this interface wouldn’t be the final product.</strong> It’s just a simple, accessible demo to help with experimentation and early-stage feedback.</p>
 </section>
-<section id="walkthrough" class="level1">
-<h1>Walkthrough</h1>
+<section id="building-a-ai-demo-page" class="level1">
+<h1>Building a AI demo page</h1>
 <p>Let’s say we hear about <strong>a model released by Facebook that can categorize text for us.</strong> We’re doing a project where we need to categorize a few thousand documents, so it sounds like it might be useful! But before we get too deep in development, it might be nice to test drive it a little bit.</p>
 <p>We’ll start off at the model’s Hugging Face page at <a href="https://huggingface.co/facebook/bart-large-mnli">https://huggingface.co/facebook/bart-large-mnli</a>.</p>
 <div class="callout callout-style-simple callout-note">
@@ -296,11 +296,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
     <source src="images/default-interface-01-example-on-page.webm">
 </video>
+<p>If you’re looking for a quick test, sometimes that playground is enough to get across how the model works and experiment with limitations.</p>
 </section>
 <section id="creating-your-own" class="level2">
 <h2 class="anchored" data-anchor-id="creating-your-own">Creating your own</h2>
-<p>If you want to share a demo with a colleague, though, you don’t want them to have to dig through that whole page. You want your own! There are a few ways to tackle this, but we’ll start with the most simple.</p>
-<p>Scroll to the top of the page and find the <strong>Deploy</strong> button on the right. Click it and you’ll see a dropdown appear: select <strong>Spaces</strong>. Spaces is Hugging Face’s application hosting platform, and they’ll let you use it for free!</p>
+<p>Those examples are fine, but they aren’t enough! If we want to share a demo with a colleague, we don’t want to force them to dig through that long, cluttered page – we want something nice and clean. There are a few ways to tackle this, but we’ll start with the most simple.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This process works for almost every Hugging Face model page, not just the one we’re using for our demo! For example, instead of putting text into categories you could be <a href="https://huggingface.co/openai/whisper-small">transcribing audio</a>.</p>
+</div>
+</div>
+</div>
+<p>Scroll to the top of the model page and find the <strong>Deploy</strong> button on the right. Click it and you’ll see a dropdown appear: select <strong>Spaces</strong>. Spaces is Hugging Face’s application hosting platform, and they’ll let you use it for free!</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
     <source src="images/default-interface-02-create-01.webm">
 </video>

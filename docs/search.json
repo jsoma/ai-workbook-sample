@@ -312,35 +312,28 @@
     "href": "demos/020-auto-spaces.html",
     "title": "How to: Create a demo page for an AI model",
     "section": "",
-    "text": "While the AI world can sometiems be super technical, you don’t need to know anything about anything to try out most models! With a link to their Hugging Face page and a few mouse clicks, the most advanced tools in the industry can be at your service.\nThe end result isn’t very customized, but sometimes that’s okay! If you’re looking for a more polished experienced, try the next chapter."
+    "text": "While the AI world can sometiems be super technical, we don’t need to know anything about anything to try out most models! With a link to their Hugging Face page and a few mouse clicks, the most advanced tools in the industry can be at your service.\nThe end result isn’t very customized, but sometimes that’s okay! If we’re looking for a more polished experienced, the next chapter might be a better fit."
   },
   {
     "objectID": "demos/020-auto-spaces.html#using-examples-on-the-page",
     "href": "demos/020-auto-spaces.html#using-examples-on-the-page",
     "title": "How to: Create a demo page for an AI model",
     "section": "Using examples on the page",
-    "text": "Using examples on the page\nThere’s usually a tiny playground on the right-hand side of the page with a couple examples. Sometimes you can also type in your own examples to have the model work on."
+    "text": "Using examples on the page\nThere’s usually a tiny playground on the right-hand side of the page with a couple examples. Sometimes you can also type in your own examples to have the model work on.\n\n    \n\nIf you’re looking for a quick test, sometimes that playground is enough to get across how the model works and experiment with limitations."
   },
   {
     "objectID": "demos/020-auto-spaces.html#creating-your-own",
     "href": "demos/020-auto-spaces.html#creating-your-own",
     "title": "How to: Create a demo page for an AI model",
     "section": "Creating your own",
-    "text": "Creating your own\nIf you want to share a demo with a colleague, though, you don’t want them to have to dig through that whole page. You want your own! There are a few ways to tackle this, but we’ll start with the most simple.\nScroll to the top of the page and find the Deploy button on the right. Click it and you’ll see a dropdown appear: select Spaces. Spaces is Hugging Face’s application hosting platform, and they’ll let you use it for free!\n\n    \n\nThey display some code, but we don’t care about it. Just click Create new Space.\n\n\n\nClick create new space\n\n\nNow Hugging Face will ask you for some details about your new demo page. You can change the Space name if you’d like, but keep everything else the same.\nScroll to the bottom and click Create Space.\n\n    \n\nNow Hugging Face will start to put your Space together. Note the Building up at the top - when it turns to Running, feel free to click the X to close the “Logs” window. It might take a few minutes, so feel free to go get a coffee!\n\n\n\nQueued up\n\n\nOnce your demo is running, you’re ready to go!"
+    "text": "Creating your own\nThose examples are fine, but they aren’t enough! If we want to share a demo with a colleague, we don’t want to force them to dig through that long, cluttered page – we want something nice and clean. There are a few ways to tackle this, but we’ll start with the most simple.\n\n\n\n\n\n\nThis process works for almost every Hugging Face model page, not just the one we’re using for our demo! For example, instead of putting text into categories you could be transcribing audio.\n\n\n\nScroll to the top of the model page and find the Deploy button on the right. Click it and you’ll see a dropdown appear: select Spaces. Spaces is Hugging Face’s application hosting platform, and they’ll let you use it for free!\n\n    \n\nThey display some code, but we don’t care about it. Just click Create new Space.\n\n\n\nClick create new space\n\n\nNow Hugging Face will ask you for some details about your new demo page. You can change the Space name if you’d like, but keep everything else the same.\nScroll to the bottom and click Create Space.\n\n    \n\nNow Hugging Face will start to put your Space together. Note the Building up at the top - when it turns to Running, feel free to click the X to close the “Logs” window. It might take a few minutes, so feel free to go get a coffee!\n\n\n\nQueued up\n\n\nOnce your demo is running, you’re ready to go!"
   },
   {
     "objectID": "demos/010-intro.html",
     "href": "demos/010-intro.html",
     "title": "Testing out tools and models",
     "section": "",
-    "text": "Dipping your toes into AI models and machine learning tools can be intimidating. How do you even get started trying things out? If it were watercolors or playing the guitar, it wouldn’t be such a big deal: you get some supplies, play around, do an awful job, see if you like it… easy-peasy, no harm done.\nTesting out an AI model seems a lot more difficult. Maybe you’re scared of or intimidated by:\n\nTechnical prowess: What even is a model, much less more advanced terms like a “transformer” or “instance segmentation?”\nProgramming skill: How do I run a Python script, install pytorch, or\nHardware requirements: Don’t I need a super-fancy computer with a $1000 video card in it to make all of these things work?\n\nLuckily, you don’t need any of these things! A little bit might help, but mostly you just need to cut and paste, click in the right places, and learn a little bit of vocab. But above all, no fear!\nIn this section we’re going to look at how to test drive AI tools on our own, without relying on signing up for services or being the best coder on the planet.\n\n\nWe’re going to start by creating a template application. Every time we test out a new tool, we can use this as our starting point."
-  },
-  {
-    "objectID": "demos/010-intro.html#creating-our-template",
-    "href": "demos/010-intro.html#creating-our-template",
-    "title": "Testing out tools and models",
-    "section": "",
-    "text": "We’re going to start by creating a template application. Every time we test out a new tool, we can use this as our starting point."
+    "text": "Dipping your toes into AI models and machine learning tools can be intimidating. How do you even get started trying things out? If it were watercolors or playing the guitar, it wouldn’t be such a big deal: you get some supplies, play around, do an awful job, see if you like it… easy-peasy, no harm done.\nTesting out an AI model seems a lot more difficult. Maybe you’re scared of or intimidated by:\n\nTechnical prowess: What even is a model, much less more advanced terms like a “transformer” or “instance segmentation?”\nProgramming skill: How do I run a Python script, install pytorch, or\nHardware requirements: Don’t I need a super-fancy computer with a $1000 video card in it to make all of these things work?\n\nLuckily, you don’t need any of these things! A little bit might help, but mostly you just need to cut and paste, click in the right places, and learn a little bit of vocab. But above all, no fear!\nIn this section we’re going to look at how to test drive AI tools on our own, without relying on signing up for services or being the best coder on the planet.\n\nA simple demo\nWe’re going to start by building a simple demo with a few clicks. This technique works with almost any Hugging Face model, and allows you to go from an AI spectator to having a shareable demo link in about 2 minutes!\n\n\nBasic customized examples\nOnce we’ve build a simple example, we might want to tweak this or that or connect multiple AI tools together.\nOur next tutorial will create a template application that we can adjust to support almost any Hugging Face AI model!"
   },
   {
     "objectID": "120-text-to-speech.html",
