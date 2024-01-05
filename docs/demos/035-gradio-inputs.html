@@ -569,18 +569,18 @@ Reformatting data
 <figcaption class="figure-caption">Getting a single result</figcaption>
 </figure>
 </div>
-<p>We don’t care that it’s ugly, we just want the result!</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>[{<span class="st">'label'</span>: <span class="st">'en'</span>, <span class="st">'score'</span>: <span class="fl">0.7135918140411377</span>}, {<span class="st">'label'</span>: <span class="st">'sw'</span>, <span class="st">'score'</span>: <span class="fl">0.044559694826602936</span>}, {<span class="st">'label'</span>: <span class="st">'it'</span>, <span class="st">'score'</span>: <span class="fl">0.04032188653945923</span>}, {<span class="st">'label'</span>: <span class="st">'ur'</span>, <span class="st">'score'</span>: <span class="fl">0.03387092426419258</span>}, {<span class="st">'label'</span>: <span class="st">'pt'</span>, <span class="st">'score'</span>: <span class="fl">0.026949740946292877</span>}, {<span class="st">'label'</span>: <span class="st">'nl'</span>, <span class="st">'score'</span>: <span class="fl">0.023431390523910522</span>}, {<span class="st">'label'</span>: <span class="st">'tr'</span>, <span class="st">'score'</span>: <span class="fl">0.023066097870469093</span>}, {<span class="st">'label'</span>: <span class="st">'el'</span>, <span class="st">'score'</span>: <span class="fl">0.013108646497130394</span>}, {<span class="st">'label'</span>: <span class="st">'ru'</span>, <span class="st">'score'</span>: <span class="fl">0.012918934226036072</span>}, {<span class="st">'label'</span>: <span class="st">'pl'</span>, <span class="st">'score'</span>: <span class="fl">0.012245920486748219</span>}]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">look at a list of language codes</a>, the model is <em>kind of</em> sure it’s English. But that’s not important right now: we just want to convert the result to a label-supported format.</p>
 </section>
 <section id="step-4-switch-to-a-label" class="level2">
 <h2 class="anchored" data-anchor-id="step-4-switch-to-a-label">Step 4: Switch to a label</h2>
-<p>We’ll do the same thing we did with our bill classifier:</p>
+<p>Now that we know what the default output looks like we can swap it for a label component. Our current output looks like this:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>[{<span class="st">'label'</span>: <span class="st">'en'</span>, <span class="st">'score'</span>: <span class="fl">0.7135918140411377</span>}, {<span class="st">'label'</span>: <span class="st">'sw'</span>, <span class="st">'score'</span>: <span class="fl">0.044559694826602936</span>}, {<span class="st">'label'</span>: <span class="st">'it'</span>, <span class="st">'score'</span>: <span class="fl">0.04032188653945923</span>}, {<span class="st">'label'</span>: <span class="st">'ur'</span>, <span class="st">'score'</span>: <span class="fl">0.03387092426419258</span>}, {<span class="st">'label'</span>: <span class="st">'pt'</span>, <span class="st">'score'</span>: <span class="fl">0.026949740946292877</span>}, {<span class="st">'label'</span>: <span class="st">'nl'</span>, <span class="st">'score'</span>: <span class="fl">0.023431390523910522</span>}, {<span class="st">'label'</span>: <span class="st">'tr'</span>, <span class="st">'score'</span>: <span class="fl">0.023066097870469093</span>}, {<span class="st">'label'</span>: <span class="st">'el'</span>, <span class="st">'score'</span>: <span class="fl">0.013108646497130394</span>}, {<span class="st">'label'</span>: <span class="st">'ru'</span>, <span class="st">'score'</span>: <span class="fl">0.012918934226036072</span>}, {<span class="st">'label'</span>: <span class="st">'pl'</span>, <span class="st">'score'</span>: <span class="fl">0.012245920486748219</span>}]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The label needs the same thing as last time – <a href="https://www.gradio.app/docs/label">according to the docs</a> it’s “a Dict[str, float] of classes and confidences.” We can go through an identical process as we did with our bill classifier:</p>
 <ol type="1">
 <li><a href="https://chat.openai.com/share/d5b6f2c7-8dc7-40a5-bba8-d6b10348a51d">Use ChatGPT</a> to get the snippet to reformat our result.</li>
 <li>Change the interface output to be for a <code>label</code></li>
 </ol>
-<p>How’d it go?</p>
+<p>After the changes the code looks like this:</p>
 <div class="sourceCode" id="cb11" data-highlighted-lines="8,9,13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -595,22 +595,23 @@ Reformatting data
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"label"</span>)</span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s try it again.</p>
+<p>Let’s try it again. Does the label output display correctly?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/lang-nice.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Looking great</figcaption>
 </figure>
 </div>
+<p>Perfect!</p>
 </section>
 </section>
 <section id="exercise-changing-model-input" class="level1">
 <h1>Exercise: Changing model input</h1>
-<p>Let’s try another model! <a href="https://huggingface.co/Salesforce/blip-image-captioning-large">Salesforce/blip-image-captioning-large</a> is used for <strong>adding captions to images</strong>. Let’s put it to work!</p>
+<p>Let’s try another model! <a href="https://huggingface.co/Salesforce/blip-image-captioning-large">Salesforce/blip-image-captioning-large</a> is used for <strong>adding captions to images</strong>, which sounds like it could be a fun tool to experiment with.</p>
 <section id="step-1-find-the-pipeline-snippet-1" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-find-the-pipeline-snippet-1">Step 1: Find the <code>pipeline</code> snippet</h2>
-<p>When we visit the <a href="https://huggingface.co/Salesforce/blip-image-captioning-large">model page</a> we eventually realize <em>there’s no <code>pipeline</code> snippet available!</em></p>
-<p>Luckily, there’s a button on the right that can give us the code. Click <strong>Use in Transformers</strong> to see the code.</p>
+<p>After visiting the <a href="https://huggingface.co/Salesforce/blip-image-captioning-large">model page</a> and scrolling around a bit, we suddenly realize <em>there’s no <code>pipeline</code> snippet available!</em></p>
+<p>There’s no need to worry, though: click the <strong>Use in Transformers</strong> button on the right-hand side of the page, near the top. It will provide you with some basic <code>pipeline</code> code.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/use-in-1.png" class="img-fluid figure-img"></p>
@@ -627,8 +628,8 @@ Reformatting data
 </section>
 <section id="step-2-build-the-base-app-1" class="level2">
 <h2 class="anchored" data-anchor-id="step-2-build-the-base-app-1">Step 2: Build the base app</h2>
-<p>The big difference between this and what we’ve done previously is that so far we’ve only accepted input in the form of text as input, not as images. But if we look at the <a href="https://www.gradio.app/docs/components">components page</a> it isn’t long before we spot the <a href="https://www.gradio.app/docs/image">image compnent</a></p>
-<p>To spoil the surprise, we can’t just do <code>type="image"</code>. The way that Gradio sends images makes the model angry, so we need to do a tiny adjustment.</p>
+<p>The big difference between this caption app and our categorization apps is that so far we’ve <em>only accepted input in the form of text, not images</em>. But if we look at the <a href="https://www.gradio.app/docs/components">components page</a> it isn’t long before we spot the <a href="https://www.gradio.app/docs/image">image compnent</a></p>
+<p>To spoil the surprise, we can’t just do <code>inputs="image"</code>. The way that Gradio sends images makes the model angry, so we need to use a slightly different process.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -646,7 +647,15 @@ Reformatting data
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># instead use inputs=gr.Image(type='pil')</span></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span>gr.Image(<span class="bu">type</span><span class="op">=</span><span class="st">'pil'</span>), outputs<span class="op">=</span><span class="st">"text"</span>)</span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Give it a run and it works like magic!</p>
+<p>Up until this point we’ve only been using shortcuts for our components so far. For example:</p>
+<ul>
+<li>“image” is a shortcut for <code>gr.Image()</code></li>
+<li>“text” is a shortcut for <code>gr.Textbox()</code></li>
+<li>“file” is a shortcut for <code>gr.File()</code></li>
+<li>“slider” is a shortcut for <code>gr.Slider()</code></li>
+</ul>
+<p>Because we need to give a little extra information to the image – “use the PIL format, not the default format” – we need to use <code>gr.Image(type='pil')</code> instead of just <code>"image"</code> (we’ll go deeper into customizing components in the next chapter).</p>
+<p>Give it a run and our app works like magic!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/success.png" class="img-fluid figure-img"></p>
