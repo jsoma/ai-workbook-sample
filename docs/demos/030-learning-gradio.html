@@ -529,8 +529,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <source src="images/gradio-tutorial/create-file.mp4">
 </video>
 <p>The new file should be called <code>requirements.txt</code> and include the following lines:</p>
-<pre><code>torch
-transformers</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>torch</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Even though it didn’t ask for the <code>torch</code> package I know it’s going to need it! When you’re done, click <strong>Commit new file to main</strong> down at the bottom.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -555,9 +555,8 @@ transformers</code></pre>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: [<span class="st">'travel'</span>, <span class="st">'dancing'</span>, <span class="st">'cooking'</span>],</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'scores'</span>: [<span class="fl">0.9905866384506226</span>, <span class="fl">0.005759452935308218</span>, <span class="fl">0.003653853666037321</span>]</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In this case, there’s a 99% chance the sentence is about <code>travel</code>, 0.57% change it’s about dancing, and 0.37% chance it’s about cooking.</p>
-<p>Those aren’t necessarily the most journalistically-useful categories, so a good start for improving our app would be to make it more relevant.</p>
-<p>If we’re bulding an app to automatically classify bills being proposed in the state legislature, we could adjust the <code>candidate_labels</code> to suggest some other options:</p>
+<p>In this case, there’s a 99% chance the sentence is about <code>travel</code>, 0.57% chance it’s about dancing, and 0.37% chance it’s about cooking. Those aren’t necessarily the most journalistically-useful categories, so a good start for improving our app would be to make the categories more relevant!</p>
+<p>If we’re bulding an app to filter through bills being proposed in the state legislature, we could adjust the <code>candidate_labels</code> to suggest some other options:</p>
 <div class="sourceCode" id="cb8" data-highlighted-lines="8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
