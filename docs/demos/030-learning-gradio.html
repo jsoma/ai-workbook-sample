@@ -284,13 +284,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#creating-a-new-space" id="toc-creating-a-new-space" class="nav-link active" data-scroll-target="#creating-a-new-space">Creating a new space</a></li>
+  <li><a href="#creating-a-new-space" id="toc-creating-a-new-space" class="nav-link active" data-scroll-target="#creating-a-new-space">Creating a new space</a>
+  <ul class="collapse">
   <li><a href="#setting-up-your-app.py-file" id="toc-setting-up-your-app.py-file" class="nav-link" data-scroll-target="#setting-up-your-app.py-file">Setting up your <code>app.py</code> file</a></li>
-  <li><a href="#looking-at-your-app" id="toc-looking-at-your-app" class="nav-link" data-scroll-target="#looking-at-your-app">Looking at your app</a></li>
-  <li><a href="#examining-our-code" id="toc-examining-our-code" class="nav-link" data-scroll-target="#examining-our-code">Examining our code</a></li>
-  <li><a href="#finding-some-fun-code" id="toc-finding-some-fun-code" class="nav-link" data-scroll-target="#finding-some-fun-code">Finding some fun code</a></li>
-  <li><a href="#incorporating-the-ai-model-code" id="toc-incorporating-the-ai-model-code" class="nav-link" data-scroll-target="#incorporating-the-ai-model-code">Incorporating the AI model code</a></li>
+  <li><a href="#using-the-app" id="toc-using-the-app" class="nav-link" data-scroll-target="#using-the-app">Using the app</a></li>
+  <li><a href="#reading-our-code" id="toc-reading-our-code" class="nav-link" data-scroll-target="#reading-our-code">Reading our code</a></li>
+  </ul></li>
+  <li><a href="#adding-an-ai-model" id="toc-adding-an-ai-model" class="nav-link" data-scroll-target="#adding-an-ai-model">Adding an AI model</a>
+  <ul class="collapse">
+  <li><a href="#incorporating-the-ai-code" id="toc-incorporating-the-ai-code" class="nav-link" data-scroll-target="#incorporating-the-ai-code">Incorporating the AI code</a></li>
   <li><a href="#dealing-with-an-error" id="toc-dealing-with-an-error" class="nav-link" data-scroll-target="#dealing-with-an-error">Dealing with an error</a></li>
+  </ul></li>
   <li><a href="#improving-our-app" id="toc-improving-our-app" class="nav-link" data-scroll-target="#improving-our-app">Improving our app</a></li>
   <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
   </ul>
@@ -346,9 +350,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </div>
 <p>By default we are using the <strong>CPU basic</strong> tier, which makes all of our AI work pretty slow. It’s free, though, so we can’t complain!</p>
 <p>When you’re done completing the form, click <strong>Create Space</strong>.</p>
-</section>
-<section id="setting-up-your-app.py-file" class="level1">
-<h1>Setting up your <code>app.py</code> file</h1>
+<section id="setting-up-your-app.py-file" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-your-app.py-file">Setting up your <code>app.py</code> file</h2>
 <p>Once you create your space, you’re given a <em>lot</em> of options about how to set it up. It even gives us example code for a Gradio app!</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -390,8 +393,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </figure>
 </div>
 </section>
-<section id="looking-at-your-app" class="level1">
-<h1>Looking at your app</h1>
+<section id="using-the-app" class="level2">
+<h2 class="anchored" data-anchor-id="using-the-app">Using the app</h2>
 <p>When we finish saving your file, Hugging Face dumps us at a page to just look at the text of our file again. It’s pretty boring.</p>
 <p>But notice one tiny thing up at the top of the page: <strong>Building!</strong></p>
 <div class="quarto-figure quarto-figure-center">
@@ -415,8 +418,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </video>
 <p>Let’s see how we made this magical beast.</p>
 </section>
-<section id="examining-our-code" class="level1">
-<h1>Examining our code</h1>
+<section id="reading-our-code" class="level2">
+<h2 class="anchored" data-anchor-id="reading-our-code">Reading our code</h2>
 <p>The code for the demo so far is pretty simple, so let’s take a second to look through it. Even if we aren’t Python programmers we can probably make some sense of it.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -433,8 +436,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </ul>
 <p>Whether this makes sense or not, we can all agree that saying hello doesn’t seem like an advanced technological feat. Let’s see how to hook it into an <em>actual AI tool.</em></p>
 </section>
-<section id="finding-some-fun-code" class="level1">
-<h1>Finding some fun code</h1>
+</section>
+<section id="adding-an-ai-model" class="level1">
+<h1>Adding an AI model</h1>
 <p>Almost every model page has a tiny piece of “how to use this” code. We’re especially looking for the examples that include a <code>pipeline</code>, as they’re easiest to build into our demos.</p>
 <p>For example, if we scroll down on the <a href="https://huggingface.co/facebook/bart-large-mnli">facebook/bart-large-mnli</a> page (the model we used last time to categorize text) we can see some reasonably-simple looking code:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -458,9 +462,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 'sequence': 'one day I will see the world'}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </blockquote>
 <p>In this example snippet, the model predicts that “one day I will see the world” has a 99.4% chance of being about travel. That seems reasonable and potentially useful, so let’s steal the code and add it into our demo!</p>
-</section>
-<section id="incorporating-the-ai-model-code" class="level1">
-<h1>Incorporating the AI model code</h1>
+<section id="incorporating-the-ai-code" class="level2">
+<h2 class="anchored" data-anchor-id="incorporating-the-ai-code">Incorporating the AI code</h2>
 <p>We’ll incorporate the code in two steps:</p>
 <ol type="1">
 <li>First, we’ll copy all of those “how to use” pieces of code into the <code>greet</code> section (technically this chunk of code is called a <strong>function</strong>, so let’s start calling it that).</li>
@@ -505,8 +508,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </figure>
 </div>
 </section>
-<section id="dealing-with-an-error" class="level1">
-<h1>Dealing with an error</h1>
+<section id="dealing-with-an-error" class="level2">
+<h2 class="anchored" data-anchor-id="dealing-with-an-error">Dealing with an error</h2>
 <p>We did our best to follow instructions and cut and paste correctly, but something terrible has happened: our demo has broken!</p>
 <p>We can tell because the badge that usually says “Building” or “Running” says <strong>Runtime error</strong> instead:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -546,6 +549,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </figure>
 </div>
 <p>Well, <em>mostly</em>. It gives us some results, they just happen to be ugly!</p>
+</section>
 </section>
 <section id="improving-our-app" class="level1">
 <h1>Improving our app</h1>
