@@ -80,5 +80,20 @@ video {
 }
 
 .figure-caption {
-    display: none;
+    font-size: 0.85em;
+    text-align: center;
+    font-style: italic;
+}
+
+pre.sourceCode {
+    font-size: 0.8em;
+}
+
+.sourceCode .highlighted-line {
+    background-color: #dafbe1;
+}
+
+.sourceCode.diff .st {
+    color: #82071e;
+    background-color: #ffebe9;
 }
