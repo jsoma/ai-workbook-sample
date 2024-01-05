@@ -294,6 +294,69 @@
     "text": "This is usually because what you’re seeing on the web page is out of sync with what your tool is actually capable of doing.\nRefresh the page. Maybe even force refresh (hold shift, click refresh)."
   },
   {
+    "objectID": "demos/035-gradio-inputs.html",
+    "href": "demos/035-gradio-inputs.html",
+    "title": "Customizing your demo (Part 2)",
+    "section": "",
+    "text": "In our last section we got a Gradio demo working on Hugging Face Spaces. Our demo took a sentence, ran it through a zero-shot text classification model, and let us know what category it belonged to.\nWe didn’t love how it displayed the output, though, so in this section we’re going to start tweaking the inputs and outputs to get something more useful, and seeing how to incorporate other models."
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#inputs-and-outputs",
+    "href": "demos/035-gradio-inputs.html#inputs-and-outputs",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Inputs and outputs",
+    "text": "Inputs and outputs\nThe code we’re starting with is below. Note those final lines: the interface accepts text as input and returns text as output.\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    classifier = pipeline(\"zero-shot-classification\",\n                          model=\"facebook/bart-large-mnli\")\n\n    candidate_labels = ['gun control', 'abortion', 'gender transition', 'freedom of speech', 'immigration', 'taxes']\n    result = classifier(text, candidate_labels)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\nWe have two ways we can clean up our demo:\n\nMake the output from the function friendlier to normal text output, or\nSwitch away from using a simple text output.\n\nLet’s take a look at both approaches."
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet",
+    "href": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 1: Find the pipeline snippet",
+    "text": "Step 1: Find the pipeline snippet\nFirst, we’ll browse the model page to find the snippet of code that uses pipeline.\n\n\n\nFinding the snippet\n\n\nIf we simplify it a little, the code ends up looking like this:\npipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\npipe(text, top_k=10)\nThe original code had top_k=1, which means “only return the top predicted result.” That seemed boring, so we moved it up to ten! You can also use return_all_scores=True if you don’t want to pick a number."
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-2-build-the-base-app",
+    "href": "demos/035-gradio-inputs.html#step-2-build-the-base-app",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 2: Build the base app",
+    "text": "Step 2: Build the base app\nNow we’ll combine the pipeline code with a Gradio interface. It doesn’t matter whether we start from the template from the last chapter or edit the bill classifier above, we just need to pay attention to two things:\n\nMake sure you return the result\nThe interface output needs to be a text\n\nOur basic app code is here:\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    pipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\n    result = pipe(text, top_k=10)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\n\n\n\n\n\n\nYou’re welcome to build a new Hugging Face Space, just remember to add your requirements.txt like we did in the last chapter!"
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-3-run-the-app-to-get-the-data-format",
+    "href": "demos/035-gradio-inputs.html#step-3-run-the-app-to-get-the-data-format",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 3: Run the app to get the data format",
+    "text": "Step 3: Run the app to get the data format\nNow we’ll try it out with I'm a potato named George Washington.\n\n\n\nGetting a single result\n\n\nWe don’t care that it’s ugly, we just want the result!\n[{'label': 'en', 'score': 0.7135918140411377}, {'label': 'sw', 'score': 0.044559694826602936}, {'label': 'it', 'score': 0.04032188653945923}, {'label': 'ur', 'score': 0.03387092426419258}, {'label': 'pt', 'score': 0.026949740946292877}, {'label': 'nl', 'score': 0.023431390523910522}, {'label': 'tr', 'score': 0.023066097870469093}, {'label': 'el', 'score': 0.013108646497130394}, {'label': 'ru', 'score': 0.012918934226036072}, {'label': 'pl', 'score': 0.012245920486748219}]\nIf we look at a list of language codes, the model is kind of sure it’s English. But that’s not important right now: we just want to convert the result to a label-supported format."
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-4-switch-to-a-label",
+    "href": "demos/035-gradio-inputs.html#step-4-switch-to-a-label",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 4: Switch to a label",
+    "text": "Step 4: Switch to a label\nWe’ll do the same thing we did with our bill classifier:\n\nUse ChatGPT to get the snippet to reformat our result.\nChange the interface output to be for a label\n\nHow’d it go?\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    pipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\n    result = pipe(text, top_k=10)\n\n    # Reformat our result\n    result = {item['label']: item['score'] for item in result}\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"label\")\niface.launch()\nLet’s try it again.\n\n\n\nLooking great"
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet-1",
+    "href": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet-1",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 1: Find the pipeline snippet",
+    "text": "Step 1: Find the pipeline snippet\nWhen we visit the model page we eventually realize there’s no pipeline snippet available!\nLuckily, there’s a button on the right that can give us the code. Click Use in Transformers to see the code.\n\n\n\nClick the “Use in Transformers” button\n\n\n\n\n\nCopy the code from up top\n\n\nThe reason why we like code from the page itself is that it usually gives us a little more detail. For example, the language detection one taught us about top_k as an option. But it’s fine, we’ll accept this!"
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-2-build-the-base-app-1",
+    "href": "demos/035-gradio-inputs.html#step-2-build-the-base-app-1",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 2: Build the base app",
+    "text": "Step 2: Build the base app\nThe big difference between this and what we’ve done previously is that so far we’ve only accepted input in the form of text as input, not as images. But if we look at the components page it isn’t long before we spot the image compnent\nTo spoil the surprise, we can’t just do type=\"image\". The way that Gradio sends images makes the model angry, so we need to do a tiny adjustment.\nimport gradio as gr\nfrom transformers import pipeline\n\n# Rename 'text' to 'image'\ndef do_action(image):\n    # Use the blip model\n    pipe = pipeline(\"image-to-text\", model=\"Salesforce/blip-image-captioning-large\")\n\n    result = pipe(image)\n\n    return result\n\n# input image, output text\n# can't use inputs=\"image\"\n# instead use inputs=gr.Image(type='pil')\niface = gr.Interface(fn=do_action, inputs=gr.Image(type='pil'), outputs=\"text\")\niface.launch()\nGive it a run and it works like magic!\n\n\n\nUpload an image, get a description of it\n\n\nOne final step and we’ll be good to go."
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#step-3-tweak-the-output",
+    "href": "demos/035-gradio-inputs.html#step-3-tweak-the-output",
+    "title": "Customizing your demo (Part 2)",
+    "section": "Step 3: Tweak the output",
+    "text": "Step 3: Tweak the output\nRight now the output is a little more Python-y than we’d like.\n[{'generated_text': \"there is a cat sitting on top of a dog's head\"}]\nJust like we did for first step in cleaning up the bill classifier, we can change the code to only output a portion of this content. In this case it’s a list where the first element has a 'generated_text' key.\nLet’s adjust our return line. You can always ask ChatGPT, but I know this one off the top of my head:\nreturn result[0]['generated_text']\nGive it a save, wait a bit for the build, and here we go! A beautiful perfect app.\n\n\n\nNow featuring a nice output"
+  },
+  {
     "objectID": "demos/030-learning-gradio.html",
     "href": "demos/030-learning-gradio.html",
     "title": "Building a custom demo for an AI model (Part 1)",

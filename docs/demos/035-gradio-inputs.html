@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -107,8 +141,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <link rel="stylesheet" href="../static/style.css">
 <meta name="twitter:title" content="AI Workbook for Journalists - Customizing your demo (Part 2)">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="images/gradio-tutorial/edited-app.png">
 <meta name="twitter:creator" content="@dangerscarf">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -243,7 +279,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-starting-point" id="toc-the-starting-point" class="nav-link active" data-scroll-target="#the-starting-point">The starting point</a>
+  <ul class="collapse">
+  <li><a href="#inputs-and-outputs" id="toc-inputs-and-outputs" class="nav-link" data-scroll-target="#inputs-and-outputs">Inputs and outputs</a></li>
+  </ul></li>
+  <li><a href="#manipulating-model-output" id="toc-manipulating-model-output" class="nav-link" data-scroll-target="#manipulating-model-output">Manipulating model output</a></li>
+  <li><a href="#choosing-different-outputs" id="toc-choosing-different-outputs" class="nav-link" data-scroll-target="#choosing-different-outputs">Choosing different outputs</a></li>
+  <li><a href="#exercise-trying-a-similar-model" id="toc-exercise-trying-a-similar-model" class="nav-link" data-scroll-target="#exercise-trying-a-similar-model">Exercise: Trying a similar model</a>
+  <ul class="collapse">
+  <li><a href="#step-1-find-the-pipeline-snippet" id="toc-step-1-find-the-pipeline-snippet" class="nav-link" data-scroll-target="#step-1-find-the-pipeline-snippet">Step 1: Find the <code>pipeline</code> snippet</a></li>
+  <li><a href="#step-2-build-the-base-app" id="toc-step-2-build-the-base-app" class="nav-link" data-scroll-target="#step-2-build-the-base-app">Step 2: Build the base app</a></li>
+  <li><a href="#step-3-run-the-app-to-get-the-data-format" id="toc-step-3-run-the-app-to-get-the-data-format" class="nav-link" data-scroll-target="#step-3-run-the-app-to-get-the-data-format">Step 3: Run the app to get the data format</a></li>
+  <li><a href="#step-4-switch-to-a-label" id="toc-step-4-switch-to-a-label" class="nav-link" data-scroll-target="#step-4-switch-to-a-label">Step 4: Switch to a label</a></li>
+  </ul></li>
+  <li><a href="#exercise-changing-model-input" id="toc-exercise-changing-model-input" class="nav-link" data-scroll-target="#exercise-changing-model-input">Exercise: Changing model input</a>
+  <ul class="collapse">
+  <li><a href="#step-1-find-the-pipeline-snippet-1" id="toc-step-1-find-the-pipeline-snippet-1" class="nav-link" data-scroll-target="#step-1-find-the-pipeline-snippet-1">Step 1: Find the <code>pipeline</code> snippet</a></li>
+  <li><a href="#step-2-build-the-base-app-1" id="toc-step-2-build-the-base-app-1" class="nav-link" data-scroll-target="#step-2-build-the-base-app-1">Step 2: Build the base app</a></li>
+  <li><a href="#step-3-tweak-the-output" id="toc-step-3-tweak-the-output" class="nav-link" data-scroll-target="#step-3-tweak-the-output">Step 3: Tweak the output</a></li>
+  </ul></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/demos/035-gradio-inputs.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -265,8 +326,361 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 </header>
 
+<p>In our <a href="../demos/030-learning-gradio.html">last section</a> we got a Gradio demo working on Hugging Face Spaces. Our demo took a sentence, ran it through <a href="https://huggingface.co/facebook/bart-large-mnli">a zero-shot text classification model</a>, and let us know what category it belonged to.</p>
+<p>We didn’t <em>love</em> how it displayed the output, though, so in this section we’re going to start tweaking the inputs and outputs to get something more useful, and seeing how to incorporate other models.</p>
+<section id="the-starting-point" class="level1">
+<h1>The starting point</h1>
+<p>Why are we unhappy? Because the output from our demo looks <em>awful!</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/edited-app.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The current state of our app</figcaption>
+</figure>
+</div>
+<p>Instead of just getting a category, we get a big mess of Python. We can dig through it to see that the model says there’s a 98% chance it’s about gun control, but… it just doesn’t look nice.</p>
+<section id="inputs-and-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="inputs-and-outputs">Inputs and outputs</h2>
+<p>The code we’re starting with is below. Note those final lines: <strong>the interface accepts text as input and returns text as output.</strong></p>
+<div class="sourceCode" id="cb1" data-highlighted-lines="13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                          model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    candidate_labels <span class="op">=</span> [<span class="st">'gun control'</span>, <span class="st">'abortion'</span>, <span class="st">'gender transition'</span>, <span class="st">'freedom of speech'</span>, <span class="st">'immigration'</span>, <span class="st">'taxes'</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> classifier(text, candidate_labels)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"text"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We have two ways we can clean up our demo:</p>
+<ol type="1">
+<li>Make the output from the function friendlier to normal text output, or</li>
+<li>Switch away from using a simple text output.</li>
+</ol>
+<p>Let’s take a look at both approaches.</p>
+</section>
+</section>
+<section id="manipulating-model-output" class="level1">
+<h1>Manipulating model output</h1>
+<p>Right now the <code>result</code> being displayed is the Python dictionary:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sequence'</span>: <span class="st">'A Bill to Regulate the Concealed Carry of Semi-Automatic Rifles'</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: [<span class="st">'gun control'</span>, <span class="st">'gender transition'</span>, <span class="st">'immigration'</span>, <span class="st">'freedom of speech'</span>, <span class="st">'taxes'</span>, <span class="st">'abortion'</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'scores'</span>: [<span class="fl">0.9809654951095581</span>, <span class="fl">0.005819385405629873</span>, <span class="fl">0.004202318377792835</span>, <span class="fl">0.00334513490088284</span>, <span class="fl">0.003268328495323658</span>, <span class="fl">0.002399460645392537</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we were writing “regular” Python, we could see the predicted label by asking for the <code>labels</code> key, then getting the first result element of the list.</p>
+<p>Gradio is no different! <strong>All of the code inside of <code>do_action</code> is just normal Python.</strong> If we just want the first label, let’s just ask for the first label:</p>
+<div class="sourceCode" id="cb3" data-highlighted-lines="11,12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                          model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    candidate_labels <span class="op">=</span> [<span class="st">'gun control'</span>, <span class="st">'abortion'</span>, <span class="st">'gender transition'</span>, <span class="st">'freedom of speech'</span>, <span class="st">'immigration'</span>, <span class="st">'taxes'</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> classifier(text, candidate_labels)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result[<span class="st">'labels'</span>][<span class="dv">0</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"text"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So we save, wait for the rebuild, send it our new data… it works great!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/just-category.png" class="browser img-fluid figure-img"></p>
+<figcaption class="figure-caption">Just the category, thanks</figcaption>
+</figure>
+</div>
+<p>No matter how fancy AI might feel or the demo might look, <strong>all of the code inside of the <code>do_action</code> function is just normal Python.</strong> Anything we can think can be sent back to the demo as long as we <code>return</code> it!</p>
+<p>To take things even further, we could also the output to be an <strong>entire sentence.</strong> If we leverage <a href="https://www.geeksforgeeks.org/formatted-string-literals-f-strings-python/">f-strings</a> to do a little “fill-in-the-blanks” for us…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the result</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> classifier(text, candidate_labels)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to a sentence</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sentence <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>result[<span class="st">'labels'</span>][<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> with a score of </span><span class="sc">{</span>result[<span class="st">'scores'</span>][<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> sentence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>…again, works great!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/full-sentence.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Sending back a complete sentence</figcaption>
+</figure>
+</div>
+</section>
+<section id="choosing-different-outputs" class="level1">
+<h1>Choosing different outputs</h1>
+<p>So far we’ve only used text as output, but Gradio supports a ton of other options! If we browse through <a href="https://www.gradio.app/docs/components">the full list of components</a> we’ll see everything from annotated images, 3D images and audio players.</p>
+<p>It isn’t always easy to know what type of output might be appropriate in each situation, so I’ll just reveal the one we’ll be using: <a href="https://www.gradio.app/docs/label">a label</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/label-screenshot.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">What a label looks like in Gradio</figcaption>
+</figure>
+</div>
+<p>If we to use the label component as the way we display our output, a good way to start is to change <code>outputs="text"</code> to <code>outputs="label"</code>. It probably won’t work automatically, but we’ll change it, save it, and see.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Note that this example does <em>not</em> use the sentence code we wrote in the last step. We’re back to boring, basic <code>return result</code>.</p>
+</div>
+</div>
+</div>
+<p>Our full code looks like this:</p>
+<div class="sourceCode" id="cb5" data-highlighted-lines="13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                          model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    candidate_labels <span class="op">=</span> [<span class="st">'gun control'</span>, <span class="st">'abortion'</span>, <span class="st">'gender transition'</span>, <span class="st">'freedom of speech'</span>, <span class="st">'immigration'</span>, <span class="st">'taxes'</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> classifier(text, candidate_labels)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"label"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Everything looks good until we click Submit on our sentence, and we’re confronted with a big red <strong>Error</strong> on the output! To double-check what went wrong, we can open up the logs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/error-label.png" class="browser img-fluid figure-img"></p>
+<figcaption class="figure-caption">Changing to a label gave us an error</figcaption>
+</figure>
+</div>
+<p>The error message is long and confusing, but in these situations it’s always one specific thing: <strong>we need to reformat our data to work with the <code>label</code> output</strong>.</p>
+<p>To understand what’s missing, we read through the <a href="https://www.gradio.app/docs/label">label documentation</a>, paying special attention to the <strong>As output</strong> note.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/label-output-explainer.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">An explanation of what a label wants</figcaption>
+</figure>
+</div>
+<p>These description aren’t always as explainable as we’d like! But what <code>expects a Dict[str, float] of classes and confidences</code> means is that the label wants this:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gun control'</span>: <span class="fl">0.965</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'immigration'</span>: <span class="fl">0.022</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'taxes'</span>: <span class="fl">0.001</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>How do we switch our data data? Rearranging data to a specific format can be a real pain, so <a href="https://chat.openai.com/share/a7ac3308-f60c-4686-8d61-6b8344c35b4e">I just asked ChatGPT to do it for me</a>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reformatting data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Any time you are trying to get your data into a specific format for a Gradio demo, a three-step process can usually get you there without too much trouble:</p>
+<ol type="1">
+<li>Use a <code>text</code> output to see what the “normal” output of the model looks like</li>
+<li>Copy the “As output” description from the document</li>
+<li>Paste them both into ChatGPT to <a href="https://chat.openai.com/share/a7ac3308-f60c-4686-8d61-6b8344c35b4e">get your answer</a></li>
+</ol>
+</div>
+</div>
+<p>Let’s update our code with ChatGPT’s suggestion.</p>
+<div class="sourceCode" id="cb7" data-highlighted-lines="11,13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                          model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    candidate_labels <span class="op">=</span> [<span class="st">'gun control'</span>, <span class="st">'abortion'</span>, <span class="st">'gender transition'</span>, <span class="st">'freedom of speech'</span>, <span class="st">'immigration'</span>, <span class="st">'taxes'</span>]</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> classifier(text, candidate_labels)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(result[<span class="st">'labels'</span>], result[<span class="st">'scores'</span>]))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"label"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And now we give it a try…</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/label-working.png" class="browser img-fluid figure-img"></p>
+<figcaption class="figure-caption">Changing to a label gave us an error</figcaption>
+</figure>
+</div>
+<p>Perfect!</p>
+</section>
+<section id="exercise-trying-a-similar-model" class="level1">
+<h1>Exercise: Trying a similar model</h1>
+<p>Let’s see how our newfound skills extend to a different model! In this case we’ll use <a href="https://huggingface.co/papluca/xlm-roberta-base-language-detection">papluca/xlm-roberta-base-language-detection</a>, which is used to detect the language of a piece of text.</p>
+<p>It should be an easy enough adaptation because the display will very similar to our bill categorization demo. We’ll have a ranking of different languages, along with a score for each.</p>
+<section id="step-1-find-the-pipeline-snippet" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-find-the-pipeline-snippet">Step 1: Find the <code>pipeline</code> snippet</h2>
+<p>First, we’ll browse the <a href="https://huggingface.co/papluca/xlm-roberta-base-language-detection">model page</a> to find the snippet of code that uses <code>pipeline</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/language-01.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Finding the snippet</figcaption>
+</figure>
+</div>
+<p>If we simplify it a little, the code ends up looking like this:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"papluca/xlm-roberta-base-language-detection"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pipe(text, top_k<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The original code had <code>top_k=1</code>, which means “only return the top predicted result.” That seemed boring, so we moved it up to ten! You can also use <code>return_all_scores=True</code> if you don’t want to pick a number.</p>
+</section>
+<section id="step-2-build-the-base-app" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-build-the-base-app">Step 2: Build the base app</h2>
+<p>Now we’ll combine the pipeline code with a <strong>Gradio interface</strong>. It doesn’t matter whether we start from the template from <a href="../demos/030-learning-gradio.html">the last chapter</a> or edit the bill classifier above, we just need to pay attention to two things:</p>
+<ol type="1">
+<li>Make sure you <code>return</code> the result</li>
+<li>The interface output needs to be a <code>text</code></li>
+</ol>
+<p>Our basic app code is here:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"papluca/xlm-roberta-base-language-detection"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> pipe(text, top_k<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"text"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You’re welcome to build a new Hugging Face Space, just remember to add your <code>requirements.txt</code> like we did in the <a href="030-learing-gradio.qmd">last chapter</a>!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-run-the-app-to-get-the-data-format" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-run-the-app-to-get-the-data-format">Step 3: Run the app to get the data format</h2>
+<p>Now we’ll try it out with <code>I'm a potato named George Washington</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/many-fr.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Getting a single result</figcaption>
+</figure>
+</div>
+<p>We don’t care that it’s ugly, we just want the result!</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>[{<span class="st">'label'</span>: <span class="st">'en'</span>, <span class="st">'score'</span>: <span class="fl">0.7135918140411377</span>}, {<span class="st">'label'</span>: <span class="st">'sw'</span>, <span class="st">'score'</span>: <span class="fl">0.044559694826602936</span>}, {<span class="st">'label'</span>: <span class="st">'it'</span>, <span class="st">'score'</span>: <span class="fl">0.04032188653945923</span>}, {<span class="st">'label'</span>: <span class="st">'ur'</span>, <span class="st">'score'</span>: <span class="fl">0.03387092426419258</span>}, {<span class="st">'label'</span>: <span class="st">'pt'</span>, <span class="st">'score'</span>: <span class="fl">0.026949740946292877</span>}, {<span class="st">'label'</span>: <span class="st">'nl'</span>, <span class="st">'score'</span>: <span class="fl">0.023431390523910522</span>}, {<span class="st">'label'</span>: <span class="st">'tr'</span>, <span class="st">'score'</span>: <span class="fl">0.023066097870469093</span>}, {<span class="st">'label'</span>: <span class="st">'el'</span>, <span class="st">'score'</span>: <span class="fl">0.013108646497130394</span>}, {<span class="st">'label'</span>: <span class="st">'ru'</span>, <span class="st">'score'</span>: <span class="fl">0.012918934226036072</span>}, {<span class="st">'label'</span>: <span class="st">'pl'</span>, <span class="st">'score'</span>: <span class="fl">0.012245920486748219</span>}]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">look at a list of language codes</a>, the model is <em>kind of</em> sure it’s English. But that’s not important right now: we just want to convert the result to a label-supported format.</p>
+</section>
+<section id="step-4-switch-to-a-label" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-switch-to-a-label">Step 4: Switch to a label</h2>
+<p>We’ll do the same thing we did with our bill classifier:</p>
+<ol type="1">
+<li><a href="https://chat.openai.com/share/d5b6f2c7-8dc7-40a5-bba8-d6b10348a51d">Use ChatGPT</a> to get the snippet to reformat our result.</li>
+<li>Change the interface output to be for a <code>label</code></li>
+</ol>
+<p>How’d it go?</p>
+<div class="sourceCode" id="cb11" data-highlighted-lines="8,9,13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"papluca/xlm-roberta-base-language-detection"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> pipe(text, top_k<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reformat our result</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> {item[<span class="st">'label'</span>]: item[<span class="st">'score'</span>] <span class="cf">for</span> item <span class="kw">in</span> result}</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"label"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s try it again.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/lang-nice.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Looking great</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="exercise-changing-model-input" class="level1">
+<h1>Exercise: Changing model input</h1>
+<p>Let’s try another model! <a href="https://huggingface.co/Salesforce/blip-image-captioning-large">Salesforce/blip-image-captioning-large</a> is used for <strong>adding captions to images</strong>. Let’s put it to work!</p>
+<section id="step-1-find-the-pipeline-snippet-1" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-find-the-pipeline-snippet-1">Step 1: Find the <code>pipeline</code> snippet</h2>
+<p>When we visit the <a href="https://huggingface.co/Salesforce/blip-image-captioning-large">model page</a> we eventually realize <em>there’s no <code>pipeline</code> snippet available!</em></p>
+<p>Luckily, there’s a button on the right that can give us the code. Click <strong>Use in Transformers</strong> to see the code.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/use-in-1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Click the “Use in Transformers” button</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/use-in-2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Copy the code from up top</figcaption>
+</figure>
+</div>
+<p>The reason why we like code from the page itself is that it usually gives us a little more detail. For example, the language detection one taught us about <code>top_k</code> as an option. But it’s fine, we’ll accept this!</p>
+</section>
+<section id="step-2-build-the-base-app-1" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-build-the-base-app-1">Step 2: Build the base app</h2>
+<p>The big difference between this and what we’ve done previously is that so far we’ve only accepted input in the form of text as input, not as images. But if we look at the <a href="https://www.gradio.app/docs/components">components page</a> it isn’t long before we spot the <a href="https://www.gradio.app/docs/image">image compnent</a></p>
+<p>To spoil the surprise, we can’t just do <code>type="image"</code>. The way that Gradio sends images makes the model angry, so we need to do a tiny adjustment.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename 'text' to 'image'</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(image):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use the blip model</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> pipeline(<span class="st">"image-to-text"</span>, model<span class="op">=</span><span class="st">"Salesforce/blip-image-captioning-large"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> pipe(image)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># input image, output text</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># can't use inputs="image"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># instead use inputs=gr.Image(type='pil')</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span>gr.Image(<span class="bu">type</span><span class="op">=</span><span class="st">'pil'</span>), outputs<span class="op">=</span><span class="st">"text"</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Give it a run and it works like magic!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/success.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Upload an image, get a description of it</figcaption>
+</figure>
+</div>
+<p>One final step and we’ll be good to go.</p>
+</section>
+<section id="step-3-tweak-the-output" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-tweak-the-output">Step 3: Tweak the output</h2>
+<p>Right now the output is a little more Python-y than we’d like.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>[{<span class="st">'generated_text'</span>: <span class="st">"there is a cat sitting on top of a dog's head"</span>}]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Just like we did for first step in cleaning up the bill classifier, we can change the code to only output a <em>portion</em> of this content. In this case it’s a list where the first element has a <code>'generated_text'</code> key.</p>
+<p>Let’s adjust our <code>return</code> line. You can always <a href="https://chat.openai.com/">ask ChatGPT</a>, but I know this one off the top of my head:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> result[<span class="dv">0</span>][<span class="st">'generated_text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Give it a save, wait a bit for the build, and here we go! A beautiful perfect app.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gradio-tutorial/extra-success.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Now featuring a nice output</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="reflection" class="level1">
+<h1>Reflection</h1>
+<p>In this chapter we took some first steps at customizing our AI demo apps.</p>
+<p>While the last chapter yielded a mostly-functional demo, it had an unattractive Python-y output that we didn’t really enjoy. This chapter began by <strong>adjusting what was sent back to Gradio</strong> so our users only saw the “human-friendly” display.</p>
+<p>Next, we explored <strong>other Gradio components</strong> outside of just text boxes. Scored categories and images were two of the ones we looked at, but there are <a href="https://www.gradio.app/docs/components">a zillion more</a> waiting for us!</p>
+<p>Finally, we saw what might happen when we use <strong>other models</strong> instead of the very first one we started with. Even if the models all use <code>pipeline</code>, it turns out they might require different inputs and outputs. Most AI demo apps are going to need at least a <em>little</em> bit of tweaking before they’re ready for our audience!</p>
+<p>In the next chapter we’ll continue to customize our application (but I’m not sure how???).</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -515,7 +929,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Find me at <a href="mailto:jonathan.soma@gmail.com">jonathan.soma@gmail.com</a> or <a href="https://twitter.com/dangerscarf"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a></div>   
-    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/demos/035-gradio-inputs.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="nav-footer-center">©2023, Jonathan Soma</div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
