@@ -196,6 +196,55 @@
     "text": "Automation in general\nResponses change"
   },
   {
+    "objectID": "basic/each-pandas-row.html",
+    "href": "basic/each-pandas-row.html",
+    "title": "Query an LLM for each pandas row",
+    "section": "",
+    "text": "Read in your dataset.\n\nimport pandas as pd\npd.options.display.max_colwidth = None\n\ndf = pd.read_csv(\"bills.csv\")\ndf\n\n\n\n\n\n\n\n\ntitle\n\n\n\n\n0\nRelates to wellness programs under life and accident and health insurance policies\n\n\n1\nRequires certain information be provided to prospective maternity patients\n\n\n2\nRelates to the distribution of fines from speed violation in work zones\n\n\n3\nRelates to emergency response plans relating to the notification of downed wires.\n\n\n\n\n\n\n\nSet up a function that you will call for every row. We are going to build a prompt with a fill-in-the-blank for the title name, and try our best to demand only the category name in response. We’re also using temperature=0 because we do not want the model to act “creatively.”\n\nfrom openai import OpenAI\n\nclient = OpenAI(api_key=\"ABC123\")\n\nprompt_template = \"\"\"\nCategorize the following legislative bill as ENVIRONMENT, HEALTHCARE, IMMIGRATION, TAXES/FINES, or OTHER. Only respond with the category name.\n\nBill title: {text}\n\"\"\"\n\ndef llm_request(row):\n    prompt = prompt_template.format(text=row['title'])\n    \n    messages = [\n        { \"role\": \"system\", \"content\": \"You are a legislative assistant.\"},\n        { \"role\": \"user\", \"content\": prompt}\n    ]\n\n    chat_completion = client.chat.completions.create(\n        messages=messages,\n        model=\"gpt-3.5-turbo\",\n        temperature=0\n    )\n\n    return chat_completion.choices[0].message.content\n\nWe’ll start by testing with the first row, which has the title Relates to wellness programs under life and accident and health insurance policies.\n\nllm_request(df.iloc[0])\n\n'HEALTHCARE'\n\n\nWe can also make a fake row to test things that aren’t in our data set.\n\nllm_request({'title': 'A bill to drill for oil on every streetcorner'})\n\n'ENVIRONMENT'\n\n\nSeems reasonable! Now let’s use it for every single row.\n\n# Add the new column\ndf['category'] = df.apply(llm_request, axis=1)\n\ndf\n\n\n\n\n\n\n\n\ntitle\ncategory\n\n\n\n\n0\nRelates to wellness programs under life and accident and health insurance policies\nHEALTHCARE\n\n\n1\nRequires certain information be provided to prospective maternity patients\nHEALTHCARE\n\n\n2\nRelates to the distribution of fines from speed violation in work zones\nTAXES/FINES\n\n\n3\nRelates to emergency response plans relating to the notification of downed wires.\nENVIRONMENT\n\n\n\n\n\n\n\nLooks great! You might want to force a JSON response if you want anything more complex (a list of categories, for example)."
+  },
+  {
+    "objectID": "basic/python.html",
+    "href": "basic/python.html",
+    "title": "Using GPT from Python",
+    "section": "",
+    "text": "Instead of chatting back and forth with ChatGPT in the browser, you can also use GPT (and other large language models) through programming languages like Python.\nI recommend starting with the official OpenAI Python package. While you might have heard the hype around LangChain, LangChain is a rat’s nest of overly complex code and out-of-date documentation, so it’s probably better to skip for now."
+  },
+  {
+    "objectID": "basic/python.html#installing-and-setup",
+    "href": "basic/python.html#installing-and-setup",
+    "title": "Using GPT from Python",
+    "section": "Installing and setup",
+    "text": "Installing and setup\nYou install the OpenAI Python package using pip:\npip install openai"
+  },
+  {
+    "objectID": "basic/python.html#usage",
+    "href": "basic/python.html#usage",
+    "title": "Using GPT from Python",
+    "section": "Usage",
+    "text": "Usage\nLet’s say we had a ChatGPT conversation about pickles:\n\n\n\nA conversation about pickles\n\n\nThe Python version would look like the code below:\nfrom openai import OpenAI\n\nclient = OpenAI(api_key=\"ABC123\")\n\nchat_completion = client.chat.completions.create(\n    messages=[\n        {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\",\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"What is the ratio of water to vinegar used when making pickles?\",\n        }\n    ],\n    model=\"gpt-3.5-turbo\",\n)\n\nprint(chat_completion.choices[0].message.content)\n\n# When making pickles, the ratio of water to vinegar can vary based on the recipe and desired flavor. However, a common starting point is a 1:1 ratio of water to vinegar.\n\n\n\n\n\n\nYou’ll need to get an API key from OpenAI so they can track your usage.\n\n\n\nTalking to GPT is based on lists of messages.\nEach message has a role and content. The different roles are:\n\nsystem: the original setup instructions optional\nuser: the person talking to the AI tool\nassistant: the AI tool itself\n\nIf you want to have a multi-round conversation with ChatGPT, you must send the entire conversation. It doesn’t remember the last time you called client.chat.completions.create."
+  },
+  {
+    "objectID": "basic/python.html#options",
+    "href": "basic/python.html#options",
+    "title": "Using GPT from Python",
+    "section": "Options",
+    "text": "Options\nWhen you’re working with the OpenAI API, there are a few common options you might adjust.\n\nModel selection\nThere are two major options of models you can use for text generation: GPT-3.5 or GPT-4. GPT-4 is better at reasoning tasks but is slower and costs more.\n# Faster, cheaper, worse\nclient = OpenAI(api_key=\"ABC123\", model_name='gpt-3.5-turbo')\n\n# Better, slower, more expensive\nclient = OpenAI(api_key=\"ABC123\", model_name='gpt-4')\nGPT-4 also has a larger context window, which is the amount of text it can pay attention to.\nText is counted “tokens” instead of characters or words, but an 8k token context window means a model can keep in mind around 10 pages of text at a time. As of this moment, GPT-4 can handle 8k tokens and GPT-3.5-turbo can handle 4k tokens, but it looks like some advanced versions can handle up to 128k tokens (~160 pages).\nYou can see current context window sizes for each model here."
+  },
+  {
+    "objectID": "basic/python.html#temperature",
+    "href": "basic/python.html#temperature",
+    "title": "Using GPT from Python",
+    "section": "Temperature",
+    "text": "Temperature\nGPT is based around predicting the next word, but it doesn’t always pick the most likely one. By adding a little randomness it get a more creative-sounding output.\nThe temperature setting decides exactly how “random” it’s going to be. It can be set from 0-2, and the default is 0.7. Use 0 if you’d like your results to be (mostly) reproducible.\n# Select the most probable word\nchat_completion = client.chat.completions.create(\n    messages=messages,\n    model=\"gpt-3.5-turbo\",\n    temperature=0.0\n)\n\n# Go a little crazy with it\nchat_completion = client.chat.completions.create(\n    messages=messages,\n    model=\"gpt-3.5-turbo\",\n    temperature=1.0\n)"
+  },
+  {
+    "objectID": "basic/python.html#forcing-json-response",
+    "href": "basic/python.html#forcing-json-response",
+    "title": "Using GPT from Python",
+    "section": "Forcing JSON response",
+    "text": "Forcing JSON response\nThis is new! JSON mode allows you to demand JSON back from GPT.\nYou used to have to ask the model politely for JSON and even then sometimes it wouldn’t give it to you. Now it will!\nfrom openai import OpenAI\nimport json\n\nclient = OpenAI(api_key=\"ABC123\")\n\nchat_completion = client.chat.completions.create(\n    response_format={ \"type\": \"json_object\" },\n    messages=[\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant designed to output JSON.\"},\n        {\"role\": \"user\", \"content\": \"I went to the store with and bought beans and cabbage, but forgot the milk. Make a JSON object describing my shopping trip, with one key of 'purchased' and one of 'not_purchased'.\"}\n    ],\n    model=\"gpt-3.5-turbo-1106\",\n)\n\ndata = json.loads(chat_completion.choices[0].message.content)\nprint(data)\n\n# {'purchased': ['beans', 'cabbage'], 'not_purchased': ['milk']}"
+  },
+  {
     "objectID": "020-article-summarization.html",
     "href": "020-article-summarization.html",
     "title": "AI Workbook for Journalists",
@@ -252,6 +301,48 @@
     "text": "How AI works: Peeking into language models\nIn this section, we’re going to study up on how chatbots actually work! While you don’t need to know all of the nuts and bolts, having a vague understanding of the tech that powers them can go a long way in understand what’s possible and what isn’t.\n\nTable of contents\n\nWhat’s a language model?, so you can finally throw “LLM” around in conversations\nHallucinations, or how and why language models lie to you\nControlling creativity with temperature, keeping things predictable (or getting a little wild)\nContext windows, or the non-infinite brains of LLMs\nLanguage models beyond ChatGPT, including Claude, Gemini, Mistral and more.\nNon-language models I don’t know if I should have this section\n\n\nlanguage models study how things work, they make predictions. they are generative AI but aren’t just chatbots.\nhallucinations are things that are more likely or less likely\nit doesn’t only produce the most likely thing, you can change temperature to swap it up\nthey can’t look back infinitely, they have a context window\nother language models are better or worse\nthere are also models that do other things"
   },
   {
+    "objectID": "semantic-search/explanation.html",
+    "href": "semantic-search/explanation.html",
+    "title": "Semantic Search",
+    "section": "",
+    "text": "Sometimes when you’re searching documents you aren’t interested in an exact match. If you’re investigating financial dealings across 70,000 emails, you don’t just want to ctrl+f and search for “money” – you’re interested in “currency” and “finances” and “debt” and everything else with the same feeling as “money.”\nSearching using similarity that’s not an exact word-for-word match is called semantic search. It’s been around for a while, but it’s gotten much much much more popular with the rise of large language models!\nSemantic search also goes far beyond just one-word synonyms like the example above.For example. XXXXX"
+  },
+  {
+    "objectID": "semantic-search/explanation.html#embeddings",
+    "href": "semantic-search/explanation.html#embeddings",
+    "title": "Semantic Search",
+    "section": "Embeddings",
+    "text": "Embeddings\nAny time someone explains semantic search they’re legally obligated to go very very very deep into a technical topic called embeddings. We’ll take a look at embeddings briefly so we have a better understanding of limitations when we’re using semantic search.\n\n\n\nCat\n\n\n\n\n\nCat\n\n\n\n\n\nCat\n\n\n\n\n\nCat\n\n\n\n\n\nCat\n\n\n\n\n\nCat"
+  },
+  {
+    "objectID": "semantic-search/explanation.html#semantic-search",
+    "href": "semantic-search/explanation.html#semantic-search",
+    "title": "Semantic Search",
+    "section": "Semantic search",
+    "text": "Semantic search\nSemantic search is a (mostly) three-step process:\n\nCreate embeddings for all of your documents\nCreate an embedding for your search string\nFind all of the documents that are similar to your search string\n\n“Documents” is vague here, it can be any practically any piece of text – a word, a sentence, a paragraph, an email, etc. In the example below, we’ll use"
+  },
+  {
+    "objectID": "semantic-search/explanation.html#types-of-matches",
+    "href": "semantic-search/explanation.html#types-of-matches",
+    "title": "Semantic Search",
+    "section": "Types of matches",
+    "text": "Types of matches"
+  },
+  {
+    "objectID": "semantic-search/explanation.html#different-embeddings",
+    "href": "semantic-search/explanation.html#different-embeddings",
+    "title": "Semantic Search",
+    "section": "Different embeddings",
+    "text": "Different embeddings"
+  },
+  {
+    "objectID": "semantic-search/explanation.html#across-languages",
+    "href": "semantic-search/explanation.html#across-languages",
+    "title": "Semantic Search",
+    "section": "Across languages",
+    "text": "Across languages\nMost embedding models just look at English, unless they note otherwise – for example, uer/sbert-base-chinese-nli is a model that’s Chinese-only. But what happens if your data is in a mix of languages? No worries, embeddings can work just as well… as long as you select a multilingual model!\nFor a real-life use case, here’s a great writeup by Jeremy Merrill about the process for analyzing a 356-gigabytes leak that included documents in both English and Portuguese:\n\nFor instance, searching for sentences similar to “establishing a new corporation” found these sentence fragments as the top two matches:\n\n“nova entidade para a sociedade,” Portuguese for “a new entity for the company” in an email discussing creating a new corporate structure.\n“of the firm as newly constituted,” from a law authorizing secretive corporate structures in Mauritius.\n\n\nYou can see an example comparing a multilingual model to an English-only model below. Feel free to adjust the sentences if you’d like to test it out across other languages!\n\nThe model we’re using provides a list of 50+ languages it knows – how well it works for any given pair, though, I can’t quite say!"
+  },
+  {
     "objectID": "090-transcription.html",
     "href": "090-transcription.html",
     "title": "Translation",
@@ -296,107 +387,121 @@
   {
     "objectID": "demos/035-gradio-inputs.html",
     "href": "demos/035-gradio-inputs.html",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "",
-    "text": "In our last section we got a Gradio demo working on Hugging Face Spaces. Our demo took a sentence, ran it through a zero-shot text classification model, and let us know what category it belonged to.\nWe didn’t love how it displayed the output, though, so in this section we’re going to start tweaking the inputs and outputs to get something more useful, and seeing how to incorporate other models."
-  },
-  {
-    "objectID": "demos/035-gradio-inputs.html#inputs-and-outputs",
-    "href": "demos/035-gradio-inputs.html#inputs-and-outputs",
-    "title": "Customizing your demo (Part 2)",
-    "section": "Inputs and outputs",
-    "text": "Inputs and outputs\nThe code we’re starting with is below. Note those final lines: the interface accepts text as input and returns text as output.\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    classifier = pipeline(\"zero-shot-classification\",\n                          model=\"facebook/bart-large-mnli\")\n\n    candidate_labels = ['gun control', 'abortion', 'gender transition', 'freedom of speech', 'immigration', 'taxes']\n    result = classifier(text, candidate_labels)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\nWe have two ways we can clean up our demo:\n\nMake the output from the function friendlier to normal text output, or\nSwitch away from using a simple text output.\n\nLet’s take a look at both approaches."
+    "text": "In our last section we got a Gradio demo working on Hugging Face Spaces. Our demo took a sentence, ran it through a zero-shot text classification model, and let us know what category the sentence belongs to.\nWe didn’t love how it displayed the output, though, so in this chapter we’re going to start tweaking the inputs and outputs to get something more useful. Along the way we’ll also incorporate other models beyond the text classification one."
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet",
     "href": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 1: Find the pipeline snippet",
-    "text": "Step 1: Find the pipeline snippet\nFirst, we’ll browse the model page to find the snippet of code that uses pipeline.\n\n\n\nFinding the snippet\n\n\nIf we simplify it a little, the code ends up looking like this:\npipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\npipe(text, top_k=10)\nThe original code had top_k=1, which means “only return the top predicted result.” That seemed boring, so we moved it up to ten! You can also use return_all_scores=True if you don’t want to pick a number."
+    "text": "Step 1: Find the pipeline snippet\nFirst, we’ll browse the model page to find the snippet of code that uses pipeline.\n\n\n\nFinding the snippet\n\n\nIf we simplify it a little, the code ends up looking like this:\npipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\npipe(text, top_k=10)\nThe original code had top_k=1, which means “only return the top predicted result.” That seemed boring, so we moved it up to ten! You can also use return_all_scores=True if you don’t want to pick a number.1"
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-2-build-the-base-app",
     "href": "demos/035-gradio-inputs.html#step-2-build-the-base-app",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 2: Build the base app",
-    "text": "Step 2: Build the base app\nNow we’ll combine the pipeline code with a Gradio interface. It doesn’t matter whether we start from the template from the last chapter or edit the bill classifier above, we just need to pay attention to two things:\n\nMake sure you return the result\nThe interface output needs to be a text\n\nOur basic app code is here:\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    pipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\n    result = pipe(text, top_k=10)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\n\n\n\n\n\n\nYou’re welcome to build a new Hugging Face Space, just remember to add your requirements.txt like we did in the last chapter!"
+    "text": "Step 2: Build the base app\nNow we’ll combine the pipeline code with a Gradio interface. It doesn’t matter whether we start from the template from the last chapter or edit the bill classifier above, we just need to pay attention to two things:\n\nMake sure you return the result\nThe interface output needs to be a text\n\nOur basic app code is here:\nimport gradio as gr\nfrom transformers import pipeline\n\npipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\n\ndef do_action(text):\n    result = pipe(text, top_k=10)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\nThe major changes from our original code are highlighted. They’re pretty much cut-and-paste from the example pipeline snippet!\n\n\n\n\n\n\nYou’re welcome to build a new Hugging Face Space, just remember to add your requirements.txt like we did in the last chapter!"
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-3-run-the-app-to-get-the-data-format",
     "href": "demos/035-gradio-inputs.html#step-3-run-the-app-to-get-the-data-format",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 3: Run the app to get the data format",
-    "text": "Step 3: Run the app to get the data format\nNow we’ll try it out with I'm a potato named George Washington.\n\n\n\nGetting a single result\n\n\nIf we look at a list of language codes, the model is kind of sure it’s English. But that’s not important right now: we just want to convert the result to a label-supported format."
+    "text": "Step 3: Run the app to get the data format\nNow we’ll try it out with I'm a potato named George Washington.\n\n\n\nGetting a single result\n\n\nIt doesn’t look great, but if we look at a list of language codes, we can figure out that the model is kind of sure it’s English. But what the model predicts isn’t important right now: we just want to convert the result to a label-supported format."
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-4-switch-to-a-label",
     "href": "demos/035-gradio-inputs.html#step-4-switch-to-a-label",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 4: Switch to a label",
-    "text": "Step 4: Switch to a label\nNow that we know what the default output looks like we can swap it for a label component. Our current output looks like this:\n[{'label': 'en', 'score': 0.7135918140411377}, {'label': 'sw', 'score': 0.044559694826602936}, {'label': 'it', 'score': 0.04032188653945923}, {'label': 'ur', 'score': 0.03387092426419258}, {'label': 'pt', 'score': 0.026949740946292877}, {'label': 'nl', 'score': 0.023431390523910522}, {'label': 'tr', 'score': 0.023066097870469093}, {'label': 'el', 'score': 0.013108646497130394}, {'label': 'ru', 'score': 0.012918934226036072}, {'label': 'pl', 'score': 0.012245920486748219}]\nThe label needs the same thing as last time – according to the docs it’s “a Dict[str, float] of classes and confidences.” We can go through an identical process as we did with our bill classifier:\n\nUse ChatGPT to get the snippet to reformat our result.\nChange the interface output to be for a label\n\nAfter the changes the code looks like this:\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    pipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\n    result = pipe(text, top_k=10)\n\n    # Reformat our result\n    result = {item['label']: item['score'] for item in result}\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"label\")\niface.launch()\nLet’s try it again. Does the label output display correctly?\n\n\n\nLooking great\n\n\nPerfect!"
+    "text": "Step 4: Switch to a label\nNow that we know what the default output looks like we can swap it for a label component. Our current output looks like this:\n[{'label': 'en', 'score': 0.7135918140411377}, {'label': 'sw', 'score': 0.044559694826602936}, {'label': 'it', 'score': 0.04032188653945923}, {'label': 'ur', 'score': 0.03387092426419258}, {'label': 'pt', 'score': 0.026949740946292877}, {'label': 'nl', 'score': 0.023431390523910522}, {'label': 'tr', 'score': 0.023066097870469093}, {'label': 'el', 'score': 0.013108646497130394}, {'label': 'ru', 'score': 0.012918934226036072}, {'label': 'pl', 'score': 0.012245920486748219}]\nThe label needs the same thing as last time – according to the docs it’s “a Dict[str, float] of classes and confidences.” We can go through an identical process to what we did with our bill classifier:\n\nUse ChatGPT to get the snippet to reformat our result.\nChange the interface output to be for a label\n\nAfter the changes the code looks like this:\nimport gradio as gr\nfrom transformers import pipeline\n\npipe = pipeline(\"text-classification\", model=\"papluca/xlm-roberta-base-language-detection\")\n\ndef do_action(text):\n    result = pipe(text, top_k=10)\n\n    # Reformat our result\n    result = {item['label']: item['score'] for item in result}\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"label\")\niface.launch()\nLet’s try it again. Does the label output display correctly?\n\n\n\nLooking great\n\n\nPerfect!"
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet-1",
     "href": "demos/035-gradio-inputs.html#step-1-find-the-pipeline-snippet-1",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 1: Find the pipeline snippet",
-    "text": "Step 1: Find the pipeline snippet\nAfter visiting the model page and scrolling around a bit, we suddenly realize there’s no pipeline snippet available!\nThere’s no need to worry, though: click the Use in Transformers button on the right-hand side of the page, near the top. It will provide you with some basic pipeline code.\n\n\n\nClick the “Use in Transformers” button\n\n\n\n\n\nCopy the code from up top\n\n\nThe reason why we like code from the page itself is that it usually gives us a little more detail. For example, the language detection one taught us about top_k as an option. But it’s fine, we’ll accept this!"
+    "text": "Step 1: Find the pipeline snippet\nAfter visiting the model page and scrolling around a bit, we suddenly realize there’s no pipeline snippet available!\nThere’s no need to worry, though: click the Use in Transformers button on the right-hand side of the page, near the top. It will provide you with some basic pipeline code.\n\n\n\nClick the “Use in Transformers” button\n\n\n\n\n\nCopy the code from up top\n\n\nThe reason why we like code from the page itself is that it usually gives us a little more detail. For example, the language detection one taught us about top_k as an option. But we aren’t picky, we’ll accept this!"
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-2-build-the-base-app-1",
     "href": "demos/035-gradio-inputs.html#step-2-build-the-base-app-1",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 2: Build the base app",
-    "text": "Step 2: Build the base app\nThe big difference between this caption app and our categorization apps is that so far we’ve only accepted input in the form of text, not images. But if we look at the components page it isn’t long before we spot the image compnent\nTo spoil the surprise, we can’t just do inputs=\"image\". The way that Gradio sends images makes the model angry, so we need to use a slightly different process.\nimport gradio as gr\nfrom transformers import pipeline\n\n# Rename 'text' to 'image'\ndef do_action(image):\n    # Use the blip model\n    pipe = pipeline(\"image-to-text\", model=\"Salesforce/blip-image-captioning-large\")\n\n    result = pipe(image)\n\n    return result\n\n# input image, output text\n# can't use inputs=\"image\"\n# instead use inputs=gr.Image(type='pil')\niface = gr.Interface(fn=do_action, inputs=gr.Image(type='pil'), outputs=\"text\")\niface.launch()\nUp until this point we’ve only been using shortcuts for our components so far. For example:\n\n“image” is a shortcut for gr.Image()\n“text” is a shortcut for gr.Textbox()\n“file” is a shortcut for gr.File()\n“slider” is a shortcut for gr.Slider()\n\nBecause we need to give a little extra information to the image – “use the PIL format, not the default format” – we need to use gr.Image(type='pil') instead of just \"image\" (we’ll go deeper into customizing components in the next chapter).\nGive it a run and our app works like magic!\n\n\n\nUpload an image, get a description of it\n\n\nOne final step and we’ll be good to go."
+    "text": "Step 2: Build the base app\nThe big difference between this caption app and our categorization apps is that so far we’ve only accepted input in the form of text, not images. But if we look at the components page it isn’t long before we spot the image compnent\nTo spoil the surprise, we can’t just do inputs=\"image\". The way that Gradio sends images makes the model angry, so we need to use a slightly different process.\nimport gradio as gr\nfrom transformers import pipeline\n\n# Use the blip model\npipe = pipeline(\"image-to-text\", model=\"Salesforce/blip-image-captioning-large\")\n\n# Rename 'text' to 'image'\ndef do_action(image):\n    result = pipe(image)\n\n    return result\n\n# input image, output text\n# can't use inputs=\"image\"\n# instead use inputs=gr.Image(type='pil')\niface = gr.Interface(fn=do_action, inputs=gr.Image(type='pil'), outputs=\"text\")\niface.launch()\nUp until this point we’ve only been using shortcuts for our components. When talking to an interface, every Gradio component has both a shortcut and a “real code” version. For example:\n\n“image” is a shortcut for gr.Image()\n“text” is a shortcut for gr.Textbox()\n“file” is a shortcut for gr.File()\n“slider” is a shortcut for gr.Slider()\n\nBecause we need to give a little extra information to the image – “use the PIL format, not the default format” – we need to use gr.Image(type='pil') instead of just \"image\" (we’ll go deeper into customizing components in the next chapter).\nUpdate the code and let it start up, and our app works like magic!\n\n\n\nUpload an image, get a description of it\n\n\nOne final step and we’ll be good to go."
   },
   {
     "objectID": "demos/035-gradio-inputs.html#step-3-tweak-the-output",
     "href": "demos/035-gradio-inputs.html#step-3-tweak-the-output",
-    "title": "Customizing your demo (Part 2)",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
     "section": "Step 3: Tweak the output",
-    "text": "Step 3: Tweak the output\nRight now the output is a little more Python-y than we’d like.\n[{'generated_text': \"there is a cat sitting on top of a dog's head\"}]\nJust like we did for first step in cleaning up the bill classifier, we can change the code to only output a portion of this content. In this case it’s a list where the first element has a 'generated_text' key.\nLet’s adjust our return line. You can always ask ChatGPT, but I know this one off the top of my head:\nreturn result[0]['generated_text']\nGive it a save, wait a bit for the build, and here we go! A beautiful perfect app.\n\n\n\nNow featuring a nice output"
+    "text": "Step 3: Tweak the output\nRight now the output is a little more Python-y than we’d like.\n[{'generated_text': \"there is a cat sitting on top of a dog's head\"}]\nJust like we did earlier in this chapter when we cleaned up the bill classifier, we can change the code to only output a portion of this content. In this case it’s a list where the first element has a 'generated_text' key.\nLet’s adjust our return line. You can always ask ChatGPT, but I know this one off the top of my head:\nreturn result[0]['generated_text']\nGive it a save, wait a bit for the build, and here we go! A beautiful perfect app.\n\n\n\nNow featuring a nice output"
+  },
+  {
+    "objectID": "demos/035-gradio-inputs.html#footnotes",
+    "href": "demos/035-gradio-inputs.html#footnotes",
+    "title": "Building an AI demo, Part 2: Customizing inputs and outputs",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nYes, i only know this from reading the documentation↩︎"
   },
   {
     "objectID": "demos/030-learning-gradio.html",
     "href": "demos/030-learning-gradio.html",
-    "title": "Building a custom demo for an AI model (Part 1)",
+    "title": "Building an AI demo, Part 1: Getting our app running",
     "section": "",
-    "text": "In the previous section we looked at how to use the default interface for building an AI demo in Hugging Face Spaces. We didn’t think too hard and didn’t change too much - we just wanted to get something running!\nThis multi-step tutorial is going to walk through creating a custom demo app with Gradio, the framework that we used in the previous step to interact with the AI model. Eventually we’ll build a free tool that transcribes our speech and translates it into another language!"
+    "text": "In the previous section we looked at how to use the default interface for building an AI demo in Hugging Face Spaces. We didn’t think too hard and didn’t change too much - we just wanted to get something running!\nThis multi-step tutorial is going to walk through creating a custom demo app to interact with the AI tools of your choice. Eventually we’ll build a free tool that transcribes our speech and translates it into another language!"
+  },
+  {
+    "objectID": "demos/030-learning-gradio.html#vocabulary-check",
+    "href": "demos/030-learning-gradio.html#vocabulary-check",
+    "title": "Building an AI demo, Part 1: Getting our app running",
+    "section": "Vocabulary check",
+    "text": "Vocabulary check\n\nAI models are the AI tools we’re going to building interfaces for. It’s a very general term – an AI model might chat with you, put things into categories, draw pictures or transcribe audio!\nHugging Face is a website where you can find AI models to download, tools people made using those models, and other AI-related stuff.\nGradio is the Python framework that we’ll use to build our interface (we also used it in the last step to interact with the model).\nA Space is Hugging Face’s name for an AI application or demo. Our demo is going to live on the Hugging Face website so you’ll see this term used a lot!"
   },
   {
     "objectID": "demos/030-learning-gradio.html#setting-up-your-app.py-file",
     "href": "demos/030-learning-gradio.html#setting-up-your-app.py-file",
-    "title": "Building a custom demo for an AI model (Part 1)",
+    "title": "Building an AI demo, Part 1: Getting our app running",
     "section": "Setting up your app.py file",
-    "text": "Setting up your app.py file\nOnce you create your space, you’re given a lot of options about how to set it up. It even gives us example code for a Gradio app!\nimport gradio as gr\n\ndef greet(name):\n    return \"Hello \" + name + \"!!\"\n\niface = gr.Interface(fn=greet, inputs=\"text\", outputs=\"text\")\niface.launch()\nIf we were cool programmers we might know what to do with this code, but we aren’t. We’re just geniuses in training! So instead of being comforted, all this code and commands and blah blah blah makes us a little confused.\n\n\n\nThis is confusing\n\n\nBut we bravely scroll down and find the button we’re looking for:\n\n(Hint: Create the app.py file right in your browser alternatively)\n\nLet’s click that.\n\n\n\nThis is easy\n\n\nThis screen allows us to create a new file called app.py. We’ll listen to directions and paste the the example code from Hugging Face into the text box.\n\n\n\nPaste the code in\n\n\nThen we scroll down and click Commit new file to main, which honestly just means “save.”\n\n\n\nClick commit"
+    "text": "Setting up your app.py file\nOnce you create your space, you’re given a lot of options about how to set it up. It even gives us example code for a Gradio app!\nimport gradio as gr\n\ndef greet(name):\n    return \"Hello \" + name + \"!!\"\n\niface = gr.Interface(fn=greet, inputs=\"text\", outputs=\"text\")\niface.launch()\nIf we were cool programmers we might know what to do with this code, but we aren’t. We’re just geniuses in training! So instead of being comforted, all this code and commands and blah blah blah makes us a little confused.\n\n\n\nThis is confusing\n\n\nBut we bravely scroll down and find the button we’re looking for:\n\n(Hint: Create the app.py file right in your browser alternatively)\n\nLet’s click that.\n\n\n\nThis is easy\n\n\nThis screen allows us to create a new file called app.py. We’ll listen to directions and paste the the example code we saw before into the text box.\n\n\n\nPaste the code in\n\n\nThen we scroll down and click Commit new file to main, which is just a fancy, overly-technical way of saying “save.”\n\n\n\nClick commit\n\n\nIt’s time to celebrate, because we’ve successfully created our first custom Gradio app!"
   },
   {
     "objectID": "demos/030-learning-gradio.html#using-the-app",
     "href": "demos/030-learning-gradio.html#using-the-app",
-    "title": "Building a custom demo for an AI model (Part 1)",
+    "title": "Building an AI demo, Part 1: Getting our app running",
     "section": "Using the app",
-    "text": "Using the app\nWhen we finish saving your file, Hugging Face dumps us at a page to just look at the text of our file again. It’s pretty boring.\nBut notice one tiny thing up at the top of the page: Building!\n\n\n\nYour app is building\n\n\nAny time you see Building it means Hugging Face is trying to start running our app. Sometimes it takes a little while!\nIn the meantime we can click the App link on the top left. This moves us from looking at the text of app.py to actually looking at our Gradio application.\nIf our app is still building the page will still say Building, but once it’s done it will say Running. It also might show you a bunch of text about the setup process. You can just click the X on the right to close that window!\n\n\n\nYour app is built, you just need to close the logging window\n\n\nAnd there you go! A beautiful app that… says hello to you.\n\n\n\nLet’s see how we made this magical beast."
+    "text": "Using the app\nWhen we finish saving our file, Hugging Face dumps us at a page to just look at the text of our file again. It’s very boring.\nBut notice one tiny thing up at the top of the page: a little blue badge that says Building!\n\n\n\nYour app is building\n\n\nAny time you see Building it means Hugging Face is trying to start running our app. It usually takes a little while!\nIn the meantime we can click the App link on the top left. This moves us from looking at the text of app.py to actually looking at our Gradio application.\nIf our app is still building the page will still say Building, but once it’s done it will say Running. It also might show you a bunch of text about the setup process. You can just click the X on the right to close the window.\n\n\n\nYour app is built, you just need to close the logging window\n\n\nAnd there you go! A beautiful app that… says hello to us."
   },
   {
     "objectID": "demos/030-learning-gradio.html#reading-our-code",
     "href": "demos/030-learning-gradio.html#reading-our-code",
-    "title": "Building a custom demo for an AI model (Part 1)",
+    "title": "Building an AI demo, Part 1: Getting our app running",
     "section": "Reading our code",
-    "text": "Reading our code\nThe code for the demo so far is pretty simple, so let’s take a second to look through it. Even if we aren’t Python programmers we can probably make some sense of it.\nimport gradio as gr\n\ndef greet(name):\n    return \"Hello \" + name + \"!!\"\n\niface = gr.Interface(fn=greet, inputs=\"text\", outputs=\"text\")\niface.launch()\nWe can see:\n\nGradio builds an interface for our demo using gr.Interface. This interface is what we’re looking at on the screen.\nThe interface has one text input and one text output. In our case, “Soma” is the input and “Hello Soma!!” is the output.\nfn=greet means that every time you click the Submit button, your interface runs the code indented after def greet.\n\nWhether this makes sense or not, we can all agree that saying hello doesn’t seem like an advanced technological feat. Let’s see how to hook it into an actual AI tool."
+    "text": "Reading our code\nThe code for the demo so far is pretty simple – even if we aren’t Python programmers we can probably make some sense of it.\nimport gradio as gr\n\ndef greet(name):\n    return \"Hello \" + name + \"!!\"\n\niface = gr.Interface(fn=greet, inputs=\"text\", outputs=\"text\")\niface.launch()\nWe can see:\n\nGradio builds an interface for our demo using gr.Interface. This interface is what we’re looking at on the screen.\nThe interface has one text input and one text output. In the example video above, “Soma” is the input and “Hello Soma!!” is the output.\nfn=greet means that every time you click the Submit button, your interface runs the code indented after def greet.\n\nWhether this makes sense or not, we can all agree that saying hello doesn’t seem like an advanced technological feat. Let’s see how to hook it into an actual AI tool."
   },
   {
     "objectID": "demos/030-learning-gradio.html#incorporating-the-ai-code",
     "href": "demos/030-learning-gradio.html#incorporating-the-ai-code",
-    "title": "Building a custom demo for an AI model (Part 1)",
+    "title": "Building an AI demo, Part 1: Getting our app running",
     "section": "Incorporating the AI code",
-    "text": "Incorporating the AI code\nWe’ll incorporate the code in two steps:\n\nFirst, we’ll copy all of those “how to use” pieces of code into the greet section (technically this chunk of code is called a function, so let’s start calling it that).\nThen we’ll adapt the code to work with the greet function.\n\nAfter those two steps, the final result looks something like this:\nimport gradio as gr\nfrom transformers import pipeline\n\ndef do_action(text):\n    classifier = pipeline(\"zero-shot-classification\",\n                          model=\"facebook/bart-large-mnli\")\n\n    candidate_labels = ['travel', 'cooking', 'dancing']\n    result = classifier(text, candidate_labels)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\nThe biggest changes are highlighted.\n\nWe added the import up top to bring in the “pipeline” code. Imports always go up top.\nWe renamed greet to do_action since we aren’t going to be saying hello any more.\nWe renamed name to text since we aren’t going to be dealing with names.\nWe used the classifier on text and saved the result to a variable called… result\nWe used return to send this result back to the interface.\n\nFor now, deep understanding of the changes aren’t too important. We’ll understand more and more as we use and change the code!\nTo use this new code, we need to edit our application file. From your demo’s homepage, click Files on the top bar, select app.py, then click the edit icon.\n\n\n\nOnce the file editor comes up, paste in the updated code and click Commit changes to main (again, that just means “save”).\n\n\n\nUpdating our file with the new code"
+    "text": "Incorporating the AI code\nIf you’d like to try to incorporate the code yourself, I suggest going through a two-step process:\n\nFirst, copy all of those “how to use” pieces of code into the greet section (technically this chunk of code is called a function, so let’s start calling it that).\nThen adapt the code to work with the greet function.\n\nI cheated for us and did it all at once (sorry!). The final result looks like this:\nimport gradio as gr\nfrom transformers import pipeline\n\nclassifier = pipeline(\"zero-shot-classification\",\n                        model=\"facebook/bart-large-mnli\")\n\ndef do_action(text):\n    candidate_labels = ['travel', 'cooking', 'dancing']\n    result = classifier(text, candidate_labels)\n\n    return result\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\nThe biggest changes are highlighted.\n\nWe added the import up top to bring in the “pipeline” code. Imports always go up top.\nWe renamed greet to do_action since we aren’t going to be saying hello any more.\nWe renamed name to text since we aren’t going to be dealing with names.\nWe used the classifier on text and saved the result to a variable called result\nWe used return result to send this result back to the interface\n\nFor now, deep understanding of the changes aren’t too important. Our grasp of what each piece means will increase as we change the code more and more.\nTo use this new code, we need to edit our application file. From your demo’s homepage, click Files on the top bar, select app.py, then click the edit icon up top.\n\n\n\nOnce the file editor comes up, delete everything that’s there and paste in our updated code and click Commit changes to main (again, that just means “save”).\n\n\n\nUpdating our file with the new code"
   },
   {
     "objectID": "demos/030-learning-gradio.html#dealing-with-an-error",
     "href": "demos/030-learning-gradio.html#dealing-with-an-error",
-    "title": "Building a custom demo for an AI model (Part 1)",
+    "title": "Building an AI demo, Part 1: Getting our app running",
     "section": "Dealing with an error",
-    "text": "Dealing with an error\nWe did our best to follow instructions and cut and paste correctly, but something terrible has happened: our demo has broken!\nWe can tell because the badge that usually says “Building” or “Running” says Runtime error instead:\n\n\n\nRuntime error\n\n\nAny time errors show up your very first stop should be examining your Logs, which is where detailed error messages (and sometimes success stories) appear. Click the button to the right of “Runtime error” to open up your logs.\n\n\n\nFinding error messages in your logs\n\n\nThe error message in this case is a common Python issue: ModuleNotFoundError: No module named 'transformers'. This means we need to install the transformers library before our code can run successfully.\nTransformers is the Python “gateway” between our code and the hundreds of AI models that live on Hugging Face. While our previous code worked without it, any time you want to do even vaguely custom AI work you probably need to install transformers.\nInstalling missing packages is a little different than it would be on your own computer: we need to add it to a file called requirements.txt. Go to the file browser, then click Add file and Create new file.\n\n\n\nThe new file should be called requirements.txt and include the following lines:\ntorch\ntransformers\nEven though it didn’t ask for the torch package I know it’s going to need it! When you’re done, click Commit new file to main down at the bottom.\n\n\n\nCreating requirements\n\n\nGive it a minute or two to start up, and then you should be ready to roll!\n\n\n\nIt works! …kind of\n\n\nWell, mostly. It gives us some results, they just happen to be ugly!"
+    "text": "Dealing with an error\nWe did our best to follow instructions and cut and paste correctly, but something terrible has happened: our demo has broken!\nWe can tell because the badge up top that usually says “Building” or “Running” says Runtime error instead:\n\n\n\nRuntime error\n\n\nAny time errors show up your our first stop should be examining the Logs, which is where detailed error messages (and sometimes success stories) appear. Click the icon to the right of “Runtime error” to open up your logs.\n\n\n\nFinding error messages in your logs\n\n\nThe error message in this case is a common Python issue: ModuleNotFoundError: No module named 'transformers'. This means we need to install the transformers library before our code can run successfully.\nTransformers is the Python “gateway” between our code and the hundreds of AI models that live on Hugging Face. While our previous code worked without it, almost every time we want to do AI work we’ll need to install transformers.\nInstalling missing packages is a little different than it would be on your own computer: we need to add it to a file called requirements.txt that lists the required packages. Go to the file browser, then click Add file and Create new file.\n\n\n\nThe new file should be called requirements.txt and include the following lines:\ntorch\ntransformers\nEven though it didn’t ask for the torch package I know it’s going to need it! When you’re done, click Commit new file to main down at the bottom.\n\n\n\nCreating requirements\n\n\nGive it a minute or two to start up, and then you should be ready to roll!\n\n\n\nIt works! …kind of\n\n\nWell, mostly. It gives us some results, they just happen to be ugly!"
+  },
+  {
+    "objectID": "demos/040-gradio-components.html",
+    "href": "demos/040-gradio-components.html",
+    "title": "Building an AI demo, Part 3: Gradio components and page layout",
+    "section": "",
+    "text": "We’ve done a pretty good job so far! We built an AI application from scratch in part one, then experimented with different Gradio outputs and models from Hugging Face in part two.\nNow that we know how to put together a solid demo, it’s time to make it really shine! In this chapter we’re going to customize inputs and outputs even further, juggle multiple models all at once, and move away from a Gradio interface to a fully customized page layout.\n\nOur starting point\nWe’re going to start from a text-to-text Gradio interface that translates text using a basic translation model.\nTODO: Should we use https://huggingface.co/facebook/mbart-large-50-many-to-many-mmt instead??\nimport gradio as gr\nfrom transformers import pipeline\n\npipe = pipeline(\"t5-small\", model=\"t5-small\")\n\ndef do_action(text):\n    result = pipe(text)\n\n    return result['translation_text']\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=\"text\")\niface.launch()\nNothing too zany: it’s an interface that takes in a text input, runs it through the translation pipeline, and then gives out the text translation. You’re asking for result['translation_text'] because result by itself just gives you some Python junk.\n\n\n\n\n\n\nUsing translations\n\n\n\nTranslation pipelines are kind of weird because you don’t just say pipeline(\"translation\"), you have to explicitly state the from and to langauges.\n# English to French\npipe = pipeline(\"translation_en_to_fr\")\n# Chinese to German\npipe = pipeline(\"translation_zh_to_de\")\nIt takes some effort to uncover this, but it’s apparently on this one single page here\n\n\nBut let’s say instead of just translating to one language, we wanted to translate to many languages.\nMultiple outputs are pretty common in AI demos! Besides side-by-side translation, you might take a piece of art and redraw it in a few artists’ styles or show the user several pieces of a multi-step process.\nTo adapt our code to output multiple translations, we need two things: some additional pipelines and a few more outputs.\nimport gradio as gr\nfrom transformers import pipeline\n\npipe_fr = pipeline(\"translation_en_to_fr\", model=\"t5-small\")\npipe_de = pipeline(\"translation_en_to_de\", model=\"t5-small\")\npipe_zh = pipeline(\"translation_en_to_zh\", model=\"Helsinki-NLP/opus-mt-en-zh\")\n\ndef do_action(text):\n    result_fr = pipe_fr(text)['translation_text']\n    result_de = pipe_de(text)['translation_text']\n    result_zh = pipe_zh(text)['translation_text']\n\n    return result_fr, result_de, result_zh\n\niface = gr.Interface(fn=do_action, inputs=\"text\", outputs=[\"text\", \"text\", \"text\"])\niface.launch()\nWe could probably figure out the multiple pipelines part, but outputs piece might be surprising. All we had to do was pass a list to outputs=, and the [\"text\", \"text\", \"text\"] means “give us three text elements.\nSame as before, we can use any of the shortcuts we wanted to display whatever is necessary. For example, we could use `[“text”, “label”, “image”]`` to display some text, a label score and an image."
   },
   {
     "objectID": "demos/020-auto-spaces.html",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AI Workbook for Journalists – data-cleaning</title>
+<title>AI Workbook for Journalists – rag</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 })
 </script>
-<script src="./static/marked.js"></script>
-<script type="module" src="./static/chatbot.js"></script>
+<script src="../static/marked.js"></script>
+<script type="module" src="../static/chatbot.js"></script>
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.12.0/gradio.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </script>
 
 
-<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="../static/style.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed fullcontent">
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">AI Workbook for Journalists</span>
     </a>
   </div>
@@ -142,13 +142,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./headlines/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../headlines/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prompting</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -157,31 +157,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The value of chat</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/prompt-engineering.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/prompt-engineering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prompt engineering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/rule-of-five.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/rule-of-five.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Rule of five</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/conversations.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/conversations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-way conversations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/conclusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/conclusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The big reveal</span></a>
   </div>
 </li>
@@ -198,13 +198,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic/python.html" class="sidebar-item-text sidebar-link">
+  <a href="../basic/python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using GPT from Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic/each-pandas-row.html" class="sidebar-item-text sidebar-link">
+  <a href="../basic/each-pandas-row.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">With pandas</span></a>
   </div>
 </li>
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./semantic-search/explanation.html" class="sidebar-item-text sidebar-link">
+  <a href="../semantic-search/explanation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Semantic Search</span></a>
   </div>
 </li>
@@ -238,13 +238,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/010-intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/010-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/020-auto-spaces.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/020-auto-spaces.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Automatic demos</span></a>
   </div>
 </li>
@@ -259,13 +259,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/030-learning-gradio.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/030-learning-gradio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">01: Basic demos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/035-gradio-inputs.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/035-gradio-inputs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">02: Adjusting outputs</span></a>
   </div>
 </li>
@@ -284,12 +284,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-<section id="data-cleaning" class="level1">
-<h1>Data cleaning</h1>
-<p>idk</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -529,7 +525,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Find me at <a href="mailto:jonathan.soma@gmail.com">jonathan.soma@gmail.com</a> or <a href="https://twitter.com/dangerscarf"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a></div>   
-    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/130-data-cleaning.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/semantic-search/rag.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">

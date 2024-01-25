@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AI Workbook for Journalists - Building a custom demo for an AI model (Part 1)</title>
+<title>AI Workbook for Journalists - Building an AI demo, Part 1: Getting our app running</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 <link rel="stylesheet" href="../static/style.css">
-<meta name="twitter:title" content="AI Workbook for Journalists - Building a custom demo for an AI model (Part 1)">
+<meta name="twitter:title" content="AI Workbook for Journalists - Building an AI demo, Part 1: Getting our app running">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="images/gradio-tutorial/space-create-button.png">
 <meta name="twitter:creator" content="@dangerscarf">
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../demos/010-intro.html">Experimenting and sharing</a></li><li class="breadcrumb-item"><a href="../demos/030-learning-gradio.html">Custom demo pages</a></li><li class="breadcrumb-item"><a href="../demos/030-learning-gradio.html">01: Building and running</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../demos/010-intro.html">Experimenting and sharing</a></li><li class="breadcrumb-item"><a href="../demos/030-learning-gradio.html">Custom model pages</a></li><li class="breadcrumb-item"><a href="../demos/030-learning-gradio.html">01: Basic demos</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -231,12 +231,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Experimenting and sharing</span></a>
+ <span class="menu-text">Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using GPT from Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic/each-pandas-row.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">With pandas</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Semantic search</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semantic-search/explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Semantic Search</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Experimenting and sharing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/010-intro.html" class="sidebar-item-text sidebar-link">
@@ -246,13 +286,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/020-auto-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Simple demo pages</span></a>
+ <span class="menu-text">Automatic demos</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="true">
- <span class="menu-text">Custom demo pages</span></a>
+ <span class="menu-text">Custom model pages</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -261,13 +301,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/030-learning-gradio.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">01: Building and running</span></a>
+ <span class="menu-text">01: Basic demos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/035-gradio-inputs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02: Customization</span></a>
+ <span class="menu-text">02: Adjusting outputs</span></a>
   </div>
 </li>
       </ul>
@@ -284,7 +324,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-goal" id="toc-the-goal" class="nav-link active" data-scroll-target="#the-goal">The goal</a></li>
+  <li><a href="#vocabulary-check" id="toc-vocabulary-check" class="nav-link active" data-scroll-target="#vocabulary-check">Vocabulary check</a></li>
+  <li><a href="#the-goal" id="toc-the-goal" class="nav-link" data-scroll-target="#the-goal">The goal</a></li>
   <li><a href="#creating-a-new-space" id="toc-creating-a-new-space" class="nav-link" data-scroll-target="#creating-a-new-space">Creating a new space</a>
   <ul class="collapse">
   <li><a href="#setting-up-your-app.py-file" id="toc-setting-up-your-app.py-file" class="nav-link" data-scroll-target="#setting-up-your-app.py-file">Setting up your <code>app.py</code> file</a></li>
@@ -306,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Building a custom demo for an AI model (Part 1)</h1>
+<h1 class="title">Building an AI demo, Part 1: Getting our app running</h1>
 </div>
 
 
@@ -322,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </header>
 
 <p>In the <a href="../demos/020-auto-spaces.html">previous section</a> we looked at how to use the default interface for building an AI demo in Hugging Face Spaces. We didn’t think too hard and didn’t change too much - we just wanted to get something running!</p>
-<p>This multi-step tutorial is going to walk through creating a custom demo app with Gradio, the framework that we used in the previous step to interact with the AI model. Eventually we’ll build a free tool that transcribes our speech and translates it into another language!</p>
+<p>This multi-step tutorial is going to walk through <strong>creating a custom demo app</strong> to interact with the AI tools of your choice. Eventually we’ll build a free tool that transcribes our speech and translates it into another language!</p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -333,16 +374,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </div>
 </div>
 </div>
+<section id="vocabulary-check" class="level2">
+<h2 class="anchored" data-anchor-id="vocabulary-check">Vocabulary check</h2>
+<ul>
+<li><strong>AI models</strong> are the AI tools we’re going to building interfaces for. It’s a very general term – an AI model might chat with you, put things into categories, draw pictures or transcribe audio!</li>
+<li><strong><a href="https://huggingface.co/">Hugging Face</a></strong> is a website where you can find AI models to download, tools people made using those models, and other AI-related stuff.</li>
+<li><strong>Gradio</strong> is the Python framework that we’ll use to build our interface (we also used it in the <a href="../demos/020-auto-spaces.html">last step</a> to interact with the model).</li>
+<li>A <strong>Space</strong> is Hugging Face’s name for an AI application or demo. Our demo is going to live on the Hugging Face website so you’ll see this term used a lot!</li>
+</ul>
+</section>
 <section id="the-goal" class="level1">
 <h1>The goal</h1>
 <p>In the first step of this tutorial we’re going to make a remarkably ugly <strong>automatic text categorizer</strong>. We might use something based on this tool to filter documents, sort emails or review legislation before they are read by an actual journalist.</p>
 <p>The end result will look like this:</p>
 <gradio-app src="https://wendys-llc-example-basic-custom-classifier.hf.space"></gradio-app>
-<p>Yes, it’s worse than what <a href="../demos/020-auto-spaces.html">we had last time</a>, but bear with me: it’s going to turn into something magical in a later chapter.</p>
+<p>Yes, it’s worse-looking than what <a href="../demos/020-auto-spaces.html">we had last time</a>, but bear with me: it’s going to turn into something magical in a later chapter!</p>
 </section>
 <section id="creating-a-new-space" class="level1">
 <h1>Creating a new space</h1>
-<p>Start by visiting the <a href="https://huggingface.co/spaces">Hugging Face Spaces homepage</a> and selecting <strong>Create new Space</strong> button.</p>
+<p>Start by visiting the <a href="https://huggingface.co/spaces">Hugging Face Spaces homepage</a> and selecting <strong>Create new Space</strong> button. In the real world we’d just call this an app or a demo, but because we’re in the Hugging Face ecosystem we’ll stick with their terminology.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/space-create-button.png" class="img-fluid figure-img"></p>
@@ -358,6 +408,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </div>
 <p>By default we are using the <strong>CPU basic</strong> tier, which makes all of our AI work pretty slow. It’s free, though, so we can’t complain!</p>
 <p>When you’re done completing the form, click <strong>Create Space</strong>.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If you get irritated by the speed issue, you <em>could</em> give them money, but an easier alternative is <a href="running-on-colab.qmd">running on Google Colab</a> or <a href="running-on-your-own-machine.qmd">running it on your own computer</a>.</p>
+</div>
+</div>
+</div>
 <section id="setting-up-your-app.py-file" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-your-app.py-file">Setting up your <code>app.py</code> file</h2>
 <p>Once you create your space, you’re given a <em>lot</em> of options about how to set it up. It even gives us example code for a Gradio app!</p>
@@ -386,49 +446,49 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <figcaption class="figure-caption">This is easy</figcaption>
 </figure>
 </div>
-<p>This screen allows us to create a new file called <code>app.py</code>. We’ll listen to directions and paste the the example code from Hugging Face into the text box.</p>
+<p>This screen allows us to create a new file called <code>app.py</code>. We’ll listen to directions and paste the the example code we saw before into the text box.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/create-file-1.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Paste the code in</figcaption>
 </figure>
 </div>
-<p>Then we scroll down and click <strong>Commit new file to <code>main</code></strong>, which honestly just means “save.”</p>
+<p>Then we scroll down and click <strong>Commit new file to <code>main</code></strong>, which is just a fancy, overly-technical way of saying “save.”</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/create-file-2.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Click commit</figcaption>
 </figure>
 </div>
+<p>It’s time to celebrate, because we’ve successfully created our first custom Gradio app!</p>
 </section>
 <section id="using-the-app" class="level2">
 <h2 class="anchored" data-anchor-id="using-the-app">Using the app</h2>
-<p>When we finish saving your file, Hugging Face dumps us at a page to just look at the text of our file again. It’s pretty boring.</p>
-<p>But notice one tiny thing up at the top of the page: <strong>Building!</strong></p>
+<p>When we finish saving our file, Hugging Face dumps us at a page to just look at the text of our file again. It’s <em>very</em> boring.</p>
+<p>But notice one tiny thing up at the top of the page: a little blue badge that says <strong>Building!</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/building.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Your app is building</figcaption>
 </figure>
 </div>
-<p>Any time you see <strong>Building</strong> it means Hugging Face is trying to start running our app. Sometimes it takes a little while!</p>
+<p>Any time you see <strong>Building</strong> it means Hugging Face is trying to start running our app. It usually takes a little while!</p>
 <p>In the meantime we can click the <strong>App</strong> link on the top left. This moves us from looking at the text of <code>app.py</code> to actually looking at our Gradio application.</p>
-<p>If our app is still building the page will still say <strong>Building</strong>, but once it’s done it will say <strong>Running</strong>. It also might show you a bunch of text about the setup process. You can just click the <code>X</code> on the right to close that window!</p>
+<p>If our app is still building the page will still say <strong>Building</strong>, but once it’s done it will say <strong>Running</strong>. It also might show you a bunch of text about the setup process. You can just click the <code>X</code> on the right to close the window.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/running.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Your app is built, you just need to close the logging window</figcaption>
 </figure>
 </div>
-<p>And there you go! A beautiful app that… says hello to you.</p>
+<p>And there you go! A beautiful app that… says hello to us.</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
 <source src="images/gradio-tutorial/hello soma.mp4">
 </video>
-<p>Let’s see how we made this magical beast.</p>
 </section>
 <section id="reading-our-code" class="level2">
 <h2 class="anchored" data-anchor-id="reading-our-code">Reading our code</h2>
-<p>The code for the demo so far is pretty simple, so let’s take a second to look through it. Even if we aren’t Python programmers we can probably make some sense of it.</p>
+<p>The code for the demo so far is pretty simple – even if we aren’t Python programmers we can probably make some sense of it.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name):</span>
@@ -439,7 +499,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <p>We can see:</p>
 <ul>
 <li>Gradio builds an interface for our demo using <code>gr.Interface</code>. This interface is what we’re looking at on the screen.</li>
-<li>The interface has one text input and one text output. In our case, “Soma” is the input and “Hello Soma!!” is the output.</li>
+<li>The interface has one text input and one text output. In the example video above, “Soma” is the input and “Hello Soma!!” is the output.</li>
 <li><code>fn=greet</code> means that every time you click the <strong>Submit</strong> button, your interface runs the code indented after <code>def greet</code>.</li>
 </ul>
 <p>Whether this makes sense or not, we can all agree that saying hello doesn’t seem like an advanced technological feat. Let’s see how to hook it into an <em>actual AI tool.</em></p>
@@ -455,7 +515,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <figcaption class="figure-caption">the demo code</figcaption>
 </figure>
 </div>
-<p>The code has two sections – the first snippet creates the classifier and the second snippet uses it.</p>
+<p>The code has two sections: the first snippet creates the classifier and the second snippet uses it.</p>
 <blockquote class="blockquote">
 <p>The model can be loaded with the zero-shot-classification pipeline like so:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
@@ -469,22 +529,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 'scores': [0.9938651323318481, 0.0032737774308770895, 0.002861034357920289],</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 'sequence': 'one day I will see the world'}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </blockquote>
-<p>In this example snippet, the model predicts that “one day I will see the world” has a 99.4% chance of being about travel. That seems reasonable and potentially useful, so let’s steal the code and add it into our demo!</p>
+<p>In this example snippet, the model predicts that “one day I will see the world” has a 99.4% chance of being about travel. That seems both reasonable and potentially useful, so let’s steal the code and add it into our demo!</p>
 <section id="incorporating-the-ai-code" class="level2">
 <h2 class="anchored" data-anchor-id="incorporating-the-ai-code">Incorporating the AI code</h2>
-<p>We’ll incorporate the code in two steps:</p>
+<p>If you’d like to try to incorporate the code yourself, I suggest going through a two-step process:</p>
 <ol type="1">
-<li>First, we’ll copy all of those “how to use” pieces of code into the <code>greet</code> section (technically this chunk of code is called a <strong>function</strong>, so let’s start calling it that).</li>
-<li>Then we’ll adapt the code to work with the <code>greet</code> function.</li>
+<li>First, copy all of those “how to use” pieces of code into the <code>greet</code> section (technically this chunk of code is called a <strong>function</strong>, so let’s start calling it that).</li>
+<li>Then adapt the code to work with the <code>greet</code> function.</li>
 </ol>
-<p>After those two steps, the final result looks something like this:</p>
+<p>I cheated for us and did it all at once (sorry!). The final result looks like this:</p>
 <div class="sourceCode" id="cb5" data-highlighted-lines="2,4,9,11,13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                          model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                        model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    candidate_labels <span class="op">=</span> [<span class="st">'travel'</span>, <span class="st">'cooking'</span>, <span class="st">'dancing'</span>]</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> classifier(text, candidate_labels)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -497,15 +557,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <li>We added the <code>import</code> up top to bring in the “pipeline” code. Imports always go up top.</li>
 <li>We renamed <code>greet</code> to <code>do_action</code> since we aren’t going to be saying hello any more.</li>
 <li>We renamed <code>name</code> to <code>text</code> since we aren’t going to be dealing with names.</li>
-<li>We used the classifier on <code>text</code> and saved the result to a variable called… <code>result</code></li>
-<li>We used <code>return</code> to send this result back to the interface.</li>
+<li>We used the classifier on <code>text</code> and saved the result to a variable called <code>result</code></li>
+<li>We used <code>return result</code> to send this result back to the interface</li>
 </ul>
-<p>For now, deep understanding of the changes aren’t too important. We’ll understand more and more as we use and change the code!</p>
-<p>To use this new code, we need to edit our application file. From your demo’s homepage, click <strong>Files</strong> on the top bar, select <strong>app.py</strong>, then click the edit icon.</p>
+<p>For now, deep understanding of the changes aren’t too important. Our grasp of what each piece means will increase as we change the code more and more.</p>
+<p>To use this new code, we need to <strong>edit our application file.</strong> From your demo’s homepage, click <strong>Files</strong> on the top bar, select <strong>app.py</strong>, then click the edit icon up top.</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
 <source src="images/gradio-tutorial/editing-file.mp4">
 </video>
-<p>Once the file editor comes up, paste in the updated code and click <strong>Commit changes to main</strong> (again, that just means “save”).</p>
+<p>Once the file editor comes up, delete everything that’s there and paste in our updated code and click <strong>Commit changes to main</strong> (again, that just means “save”).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/update-file.png" class="img-fluid figure-img"></p>
@@ -515,15 +575,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </section>
 <section id="dealing-with-an-error" class="level2">
 <h2 class="anchored" data-anchor-id="dealing-with-an-error">Dealing with an error</h2>
-<p>We did our best to follow instructions and cut and paste correctly, but something terrible has happened: our demo has broken!</p>
-<p>We can tell because the badge that usually says “Building” or “Running” says <strong>Runtime error</strong> instead:</p>
+<p>We did our best to follow instructions and cut and paste correctly, but something terrible has happened: <strong>our demo has broken!</strong></p>
+<p>We can tell because the badge up top that usually says “Building” or “Running” says <strong>Runtime error</strong> instead:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/runtime-error.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Runtime error</figcaption>
 </figure>
 </div>
-<p>Any time errors show up your very first stop should be examining your <strong>Logs</strong>, which is where detailed error messages (and sometimes success stories) appear. Click the button to the right of “Runtime error” to open up your logs.</p>
+<p>Any time errors show up your our first stop should be examining the <strong>Logs</strong>, which is where detailed error messages (and sometimes success stories) appear. Click the icon to the right of “Runtime error” to open up your logs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/open-logs.png" class="img-fluid figure-img"></p>
@@ -531,8 +591,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </figure>
 </div>
 <p>The error message in this case is a common Python issue: <code>ModuleNotFoundError: No module named 'transformers'</code>. This means we need to install the <code>transformers</code> library before our code can run successfully.</p>
-<p>Transformers is the Python “gateway” between our code and the hundreds of AI models that live on Hugging Face. While our previous code worked without it, any time you want to do even vaguely custom AI work you probably need to install transformers.</p>
-<p>Installing missing packages is a little different than it would be on your own computer: we need to add it to a file called <code>requirements.txt</code>. Go to the file browser, then click <strong>Add file</strong> and <strong>Create new file</strong>.</p>
+<p>Transformers is the Python “gateway” between our code and the hundreds of AI models that live on Hugging Face. While our previous code worked without it, almost every time we want to do AI work we’ll need to install transformers.</p>
+<p>Installing missing packages is a little different than it would be on your own computer: we need to add it to a file called <code>requirements.txt</code> that lists the required packages. Go to the file browser, then click <strong>Add file</strong> and <strong>Create new file</strong>.</p>
 <video autoplay="" muted="" loop="" playsinline="" preload="auto">
 <source src="images/gradio-tutorial/create-file.mp4">
 </video>
@@ -569,10 +629,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <div class="sourceCode" id="cb8" data-highlighted-lines="8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                          model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"zero-shot-classification"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                        model<span class="op">=</span><span class="st">"facebook/bart-large-mnli"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_action(text):</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    candidate_labels <span class="op">=</span> [<span class="st">'gun control'</span>, <span class="st">'abortion'</span>, <span class="st">'gender transition'</span>, <span class="st">'freedom of speech'</span>, <span class="st">'immigration'</span>, <span class="st">'taxes'</span>]</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> classifier(text, candidate_labels)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -580,7 +640,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>iface <span class="op">=</span> gr.Interface(fn<span class="op">=</span>do_action, inputs<span class="op">=</span><span class="st">"text"</span>, outputs<span class="op">=</span><span class="st">"text"</span>)</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>iface.launch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We’ll edit the same way we did last time: head back to the file browser, open (and edit) our <code>app.py</code>, save the changes, then click <strong>App</strong> to return to the “front page” of our demo and wait for the app to start up again.</p>
+<p>We’ll edit the file the same way we did last time:</p>
+<ol type="1">
+<li>Head back to the file browser</li>
+<li>Open (and edit) our <code>app.py</code></li>
+<li>Save the changes</li>
+<li>Click <strong>App</strong> to return to the “front page” of our demo and wait for the app to start up again.</li>
+</ol>
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -591,7 +657,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </div>
 </div>
 </div>
-<p>Once it’s started up, give it a try to see how those new categories shape up.</p>
+<p>Once our app has started up, give it a try to see how those new categories shape up.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/gradio-tutorial/edited-app.png" class="img-fluid figure-img"></p>
@@ -603,10 +669,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <section id="reflection" class="level1">
 <h1>Reflection</h1>
 <p>In this section we built a Gradio app on Hugging Face Spaces that used a <a href="https://huggingface.co/facebook/bart-large-mnli">zero-shot classification model</a> to put pieces of text in different categories.</p>
-<p>While we did this in a <em>much</em> more attractive way <a href="../demos/020-auto-spaces.html">in the last section</a>, this is the first step in exerting actual control over our demo. For instance, this version has the categories pre-set so the user doesn’t need to enter anything except the text they want categorized.</p>
-<p>Skills-wise, <strong>we learned the basics of uploading and updating files on Spaces.</strong> Most of the more technical users will probably want to use tools like git (which Hugging Face suggested early on), but for simple projects it’s often easiest to just use the built-in file browser.</p>
+<p>While we did this in a <em>much</em> less attractive way than <a href="../demos/020-auto-spaces.html">the last section</a>, this is the first step in exerting <strong>actual control over our demo</strong>. For instance, this version has the categories pre-set so the user doesn’t need to enter anything except the text they want categorized.</p>
+<p>Skills-wise, <strong>we learned the basics of uploading and updating files on Spaces.</strong> Most of the more technical users will probably want to use tools like git – which Hugging Face suggested early on – but for simple projects it’s often easiest to just use the built-in file browser.</p>
 <p>We also learned to pay attention to the build process (Building/Running/Runtime Error), how to <strong>troubleshoot errors</strong> by looking at the logs, and how to use <code>requirements.txt</code> to fix instances of missing modules.</p>
-<p>Finally, we saw that all a Gradio app does is run a little snippet of code and display the results. Anything we put inside of that function gets run, and whatever we <code>return</code> gets displayed!</p>
+<p>Finally, we saw that all a Gradio app does is run a little snippet of code and display the results. Anything we put inside of that function gets run, and whatever we <code>return</code> gets shown!</p>
 <p>In the <a href="../demos/035-gradio-inputs.html">next section</a> we’ll start customizing our app and trying different models, along with taking a look at Gradio inputs and outputs.</p>
 
 
@@ -849,12 +915,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../demos/020-auto-spaces.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Simple demo pages</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Automatic demos</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../demos/035-gradio-inputs.html" class="pagination-link">
-        <span class="nav-page-text">02: Customization</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">02: Adjusting outputs</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

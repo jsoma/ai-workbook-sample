@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AI Workbook for Journalists – data-cleaning</title>
+<title>AI Workbook for Journalists - Query an LLM for each pandas row</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,25 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../semantic-search/explanation.html" rel="next">
+<link href="../basic/python.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -90,8 +126,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 })
 </script>
-<script src="./static/marked.js"></script>
-<script type="module" src="./static/chatbot.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="../static/marked.js"></script>
+<script type="module" src="../static/chatbot.js"></script>
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.12.0/gradio.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -104,7 +143,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </script>
 
 
-<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="../static/style.css">
+<meta name="twitter:title" content="AI Workbook for Journalists - Query an LLM for each pandas row">
+<meta name="twitter:description" content="">
+<meta name="twitter:creator" content="@dangerscarf">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-sidebar docked nav-fixed fullcontent">
@@ -114,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">AI Workbook for Journalists</span>
     </a>
   </div>
@@ -128,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic/python.html">Basics</a></li><li class="breadcrumb-item"><a href="../basic/each-pandas-row.html">With pandas</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -142,13 +185,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./headlines/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../headlines/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prompting</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -157,31 +200,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The value of chat</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/prompt-engineering.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/prompt-engineering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prompt engineering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/rule-of-five.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/rule-of-five.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Rule of five</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/conversations.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/conversations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-way conversations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./headlines/conclusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../headlines/conclusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The big reveal</span></a>
   </div>
 </li>
@@ -198,13 +241,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic/python.html" class="sidebar-item-text sidebar-link">
+  <a href="../basic/python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using GPT from Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic/each-pandas-row.html" class="sidebar-item-text sidebar-link">
+  <a href="../basic/each-pandas-row.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">With pandas</span></a>
   </div>
 </li>
@@ -221,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./semantic-search/explanation.html" class="sidebar-item-text sidebar-link">
+  <a href="../semantic-search/explanation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Semantic Search</span></a>
   </div>
 </li>
@@ -238,13 +281,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/010-intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/010-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/020-auto-spaces.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/020-auto-spaces.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Automatic demos</span></a>
   </div>
 </li>
@@ -259,13 +302,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <ul id="" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/030-learning-gradio.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/030-learning-gradio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">01: Basic demos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./demos/035-gradio-inputs.html" class="sidebar-item-text sidebar-link">
+  <a href="../demos/035-gradio-inputs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">02: Adjusting outputs</span></a>
   </div>
 </li>
@@ -282,14 +325,154 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Query an LLM for each pandas row</h1>
+</div>
 
 
-<section id="data-cleaning" class="level1">
-<h1>Data cleaning</h1>
-<p>idk</p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Read in your dataset.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pd.options.display.max_colwidth <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"bills.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
 
 
-</section>
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">title</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Relates to wellness programs under life and accident and health insurance policies</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Requires certain information be provided to prospective maternity patients</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Relates to the distribution of fines from speed violation in work zones</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Relates to emergency response plans relating to the notification of downed wires.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Set up a function that you will call for every row. We are going to build a prompt with a fill-in-the-blank for the title name, and try our best to demand only the category name in response. We’re also using <code>temperature=0</code> because we do <em>not</em> want the model to act “creatively.”</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI(api_key<span class="op">=</span><span class="st">"ABC123"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>prompt_template <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following legislative bill as ENVIRONMENT, HEALTHCARE, IMMIGRATION, TAXES/FINES, or OTHER. Only respond with the category name.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">Bill title: </span><span class="sc">{text}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_request(row):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> prompt_template.<span class="bu">format</span>(text<span class="op">=</span>row[<span class="st">'title'</span>])</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    messages <span class="op">=</span> [</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: <span class="st">"You are a legislative assistant."</span>},</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    chat_completion <span class="op">=</span> client.chat.completions.create(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>messages,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chat_completion.choices[<span class="dv">0</span>].message.content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ll start by testing with the first row, which has the title <strong>Relates to wellness programs under life and accident and health insurance policies</strong>.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>llm_request(df.iloc[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>'HEALTHCARE'</code></pre>
+</div>
+</div>
+<p>We can also make a fake row to test things that aren’t in our data set.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>llm_request({<span class="st">'title'</span>: <span class="st">'A bill to drill for oil on every streetcorner'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>'ENVIRONMENT'</code></pre>
+</div>
+</div>
+<p>Seems reasonable! Now let’s use it for every single row.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the new column</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'category'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(llm_request, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">title</th>
+<th data-quarto-table-cell-role="th">category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Relates to wellness programs under life and accident and health insurance policies</td>
+<td>HEALTHCARE</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Requires certain information be provided to prospective maternity patients</td>
+<td>HEALTHCARE</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Relates to the distribution of fines from speed violation in work zones</td>
+<td>TAXES/FINES</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Relates to emergency response plans relating to the notification of downed wires.</td>
+<td>ENVIRONMENT</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Looks great! You might want to <a href="../basic/python.html#forcing-json-response">force a JSON response</a> if you want anything more complex (a list of categories, for example).</p>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -525,11 +708,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../basic/python.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using GPT from Python</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../semantic-search/explanation.html" class="pagination-link">
+        <span class="nav-page-text">Semantic Search</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Find me at <a href="mailto:jonathan.soma@gmail.com">jonathan.soma@gmail.com</a> or <a href="https://twitter.com/dangerscarf"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a></div>   
-    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jsoma/ai-workbook/edit/main/130-data-cleaning.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="nav-footer-center">©2023, Jonathan Soma<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/jsoma/ai-workbook/blob/main/basic/each-pandas-row.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jsoma/ai-workbook/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">

@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../demos/010-intro.html">Experimenting and sharing</a></li><li class="breadcrumb-item"><a href="../demos/020-auto-spaces.html">Simple demo pages</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../demos/010-intro.html">Experimenting and sharing</a></li><li class="breadcrumb-item"><a href="../demos/020-auto-spaces.html">Automatic demos</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -197,12 +197,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Experimenting and sharing</span></a>
+ <span class="menu-text">Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using GPT from Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic/each-pandas-row.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">With pandas</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Semantic search</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semantic-search/explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Semantic Search</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Experimenting and sharing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/010-intro.html" class="sidebar-item-text sidebar-link">
@@ -212,13 +252,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/020-auto-spaces.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Simple demo pages</span></a>
+ <span class="menu-text">Automatic demos</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="true">
- <span class="menu-text">Custom demo pages</span></a>
+ <span class="menu-text">Custom model pages</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -227,13 +267,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/030-learning-gradio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01: Building and running</span></a>
+ <span class="menu-text">01: Basic demos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../demos/035-gradio-inputs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02: Customization</span></a>
+ <span class="menu-text">02: Adjusting outputs</span></a>
   </div>
 </li>
       </ul>
@@ -626,7 +666,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../demos/030-learning-gradio.html" class="pagination-link">
-        <span class="nav-page-text">01: Building and running</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">01: Basic demos</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
